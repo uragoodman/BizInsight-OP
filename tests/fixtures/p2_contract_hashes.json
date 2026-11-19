@@ -1,0 +1,125 @@
+{
+  "version": "p2-1",
+  "cases": [
+    {
+      "case_id": "core-01",
+      "contract_hash": "df5bb19ff28ee0fb6da601fafdb9a936138f232f190f3fc8966fddc8e6a032e4",
+      "parse_status": "clarification_required",
+      "metric_id": "order_count",
+      "dimension": "product_category",
+      "operation_intent": "dimensional_statistical_contribution",
+      "needs_clarification": true,
+      "reason": "date_outside_locked_scope"
+    },
+    {
+      "case_id": "core-02",
+      "contract_hash": "1ba71d3422a07e01de9e0b26e1017b5fa6937babaa13b165d17a462405afcf9b",
+      "parse_status": "resolved",
+      "metric_id": "gmv",
+      "dimension": null,
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": false,
+      "reason": null
+    },
+    {
+      "case_id": "core-03",
+      "contract_hash": "83981870a795a2dfb68750e4606ec83ca644657797ecb0ef92c24ad0ac5eaf45",
+      "parse_status": "clarification_required",
+      "metric_id": "gmv",
+      "dimension": null,
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": true,
+      "reason": "dimension_not_registered"
+    },
+    {
+      "case_id": "core-04",
+      "contract_hash": "a7d36481d98eabbb37bc053bf26490334bc4e422a42fddb42310661fc570ae01",
+      "parse_status": "clarification_required",
+      "metric_id": "order_count",
+      "dimension": null,
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": true,
+      "reason": "ambiguous_dimension"
+    },
+    {
+      "case_id": "core-05",
+      "contract_hash": "a695cfc7db7535db58311502bc1412bc3303a423063c0d3fea547484eeebd98c",
+      "parse_status": "clarification_required",
+      "metric_id": "avg_items_per_order",
+      "dimension": null,
+      "operation_intent": "dimensional_statistical_contribution",
+      "needs_clarification": true,
+      "reason": "dimension_required"
+    },
+    {
+      "case_id": "core-06",
+      "contract_hash": "1ba71d3422a07e01de9e0b26e1017b5fa6937babaa13b165d17a462405afcf9b",
+      "parse_status": "resolved",
+      "metric_id": "gmv",
+      "dimension": null,
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": false,
+      "reason": null
+    },
+    {
+      "case_id": "core-07",
+      "contract_hash": "649d80aedc80a8beb152842c23785ebbcc1de885ec680dfe01090b7f490b28f1",
+      "parse_status": "resolved",
+      "metric_id": "gmv",
+      "dimension": "product_category",
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": false,
+      "reason": null
+    },
+    {
+      "case_id": "core-08",
+      "contract_hash": "810e7789fa2b77b6631d183f47549fbf7b3fc549b7f4ed0fe052d3266a9a3ba0",
+      "parse_status": "resolved",
+      "metric_id": null,
+      "dimension": "product_category",
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": false,
+      "reason": null
+    },
+    {
+      "case_id": "core-09",
+      "contract_hash": "50cfa242ccda6ef6779b3819536f455313494f80645b704e7c1844288db22f33",
+      "parse_status": "clarification_required",
+      "metric_id": null,
+      "dimension": "product_category",
+      "operation_intent": "dimensional_statistical_contribution",
+      "needs_clarification": true,
+      "reason": "metric_required"
+    },
+    {
+      "case_id": "core-10",
+      "contract_hash": "a7d36481d98eabbb37bc053bf26490334bc4e422a42fddb42310661fc570ae01",
+      "parse_status": "clarification_required",
+      "metric_id": "order_count",
+      "dimension": null,
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": true,
+      "reason": "ambiguous_dimension"
+    },
+    {
+      "case_id": "core-11",
+      "contract_hash": "83981870a795a2dfb68750e4606ec83ca644657797ecb0ef92c24ad0ac5eaf45",
+      "parse_status": "clarification_required",
+      "metric_id": "gmv",
+      "dimension": null,
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": true,
+      "reason": "dimension_not_registered"
+    },
+    {
+      "case_id": "core-12",
+      "contract_hash": "08a88899b059a3dc2890171986e33b31af553c4fa90e2b867b8b66f9d582a69f",
+      "parse_status": "clarification_required",
+      "metric_id": "gmv",
+      "dimension": null,
+      "operation_intent": "ordinary_metric_query",
+      "needs_clarification": true,
+      "reason": "region_filter_not_supported"
+    }
+  ]
+}

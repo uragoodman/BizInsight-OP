@@ -1,0 +1,75 @@
+{
+  "seller_baseline": {
+    "roles": ["owner", "admin", "analyst", "reviewer"],
+    "agents": {
+      "data_query": [
+        "query_gmv",
+        "query_order_count",
+        "query_avg_order_value",
+        "query_cancel_rate",
+        "query_freight_value",
+        "query_review_score_avg",
+        "query_delivery_delay_rate",
+        "query_customer_count",
+        "query_repeat_customer_count",
+        "query_repeat_purchase_rate",
+        "query_avg_items_per_order",
+        "query_avg_delivery_lead_time",
+        "query_on_time_delivery_rate",
+        "query_bad_review_rate",
+        "query_freight_rate",
+        "query_metric_trend",
+        "query_metric_statistics",
+        "query_scoped_order_freight_distribution",
+        "query_scoped_registered_association",
+        "compare_metric",
+        "breakdown_by_dimension",
+        "compare_breakdown_by_dimension",
+        "compare_breakdown_by_dimension_period",
+        "query_metric_period",
+        "compare_metric_period",
+        "query_metric_batch_period",
+        "list_metric_definitions",
+        "get_metric_definition"
+      ]
+    }
+  },
+  "public": {
+    "analyst": {
+      "data_query": [
+        "query_gmv",
+        "query_order_count",
+        "query_avg_order_value",
+        "query_cancel_rate",
+        "query_freight_value",
+        "query_review_score_avg",
+        "query_delivery_delay_rate",
+        "query_customer_count",
+        "query_repeat_customer_count",
+        "query_repeat_purchase_rate",
+        "query_avg_items_per_order",
+        "query_avg_delivery_lead_time",
+        "query_on_time_delivery_rate",
+        "query_bad_review_rate",
+        "query_freight_rate",
+        "query_metric_trend",
+        "query_metric_statistics",
+        "query_scoped_order_freight_distribution",
+        "query_scoped_registered_association",
+        "estimate_scoped_randomized_experiment",
+        "compare_metric",
+        "breakdown_by_dimension",
+        "query_metric_by_dimensions",
+        "compare_breakdown_by_dimension",
+        "compare_breakdown_by_dimension_period",
+        "compare_freight_rate_ratio_facts_by_dimension_period",
+        "compare_avg_order_value_ratio_facts_by_dimension_period",
+        "query_metric_period",
+        "compare_metric_period",
+        "query_metric_batch_period",
+        "list_metric_definitions",
+        "get_metric_definition"
+      ]
+    }
+  }
+}

@@ -1,0 +1,427 @@
+planning_defaults:
+  examples: ["查询{display_name}", "查看{display_name}趋势"]
+  limitations: "店铺指标仅在锁定店铺、日期范围和受控口径内可执行。"
+metrics:
+  - metric_id: seller_free_shipping_order_rate
+    display_name: 店铺免运费订单占比
+    aliases: [包邮订单占比]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/freight_value.md
+    display_order: 45
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.free_shipping_order_rate, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 店铺订单中商品行运费合计为零的订单占比}}
+  - metric_id: seller_avg_early_delivery_days
+    display_name: 店铺平均提前送达天数
+    aliases: [平均提前天数]
+    unit: days
+    display_format: days
+    base_grain: order
+    aggregation: average
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 40
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.avg_early_delivery_days, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_seller_fulfillment, lineage_description: 单卖家订单中提前签收的平均提前天数}}
+  - metric_id: seller_avg_late_delivery_days
+    planning:
+      exact_aliases:
+        - "\u5e73\u5747\u5ef6\u8bef\u9001\u8fbe\u5929\u6570"
+    display_name: 店铺平均延迟送达天数
+    aliases: [平均延迟天数]
+    unit: days
+    display_format: days
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 41
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.avg_late_delivery_days, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_seller_fulfillment, lineage_description: 单卖家订单中延迟签收的平均延迟天数}}
+  - metric_id: seller_avg_delivery_estimate_abs_error_days
+    display_name: 店铺预计送达误差绝对值
+    aliases: [预计送达误差]
+    unit: days
+    display_format: days
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 42
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.delivery_estimate_abs_error_days, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_seller_fulfillment, lineage_description: 单卖家订单实际签收与预计送达的绝对误差平均天数}}
+  - metric_id: seller_p90_order_to_delivery_days
+    display_name: 店铺 P90 下单至签收时长
+    aliases: [P90 全链路送达时长]
+    unit: days
+    display_format: days
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 43
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.p90_order_to_delivery_days, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_seller_fulfillment, lineage_description: 单卖家已签收订单下单至签收时长的 P90}}
+  - metric_id: seller_missing_delivery_timestamp_rate
+    display_name: 店铺签收时间缺失率
+    aliases: [签收时间缺失率]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 44
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.missing_delivery_timestamp_rate, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_seller_fulfillment, lineage_description: 单卖家已交付订单中签收时间为空的比例}}
+  - metric_id: seller_single_item_order_product_review_score_avg
+    display_name: 单商品订单商品平均评分
+    aliases: [单商品评分]
+    unit: score
+    display_format: score
+    base_grain: review
+    aggregation: average
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/review_score_avg.md
+    display_order: 36
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.single_item_review_score, capabilities: [value, trend], dimensions: [], lineage_source: order_items + order_reviews, lineage_description: 仅一个商品行的店铺订单评论平均分，严格商品级样本}}
+  - metric_id: seller_single_item_order_product_bad_review_rate
+    display_name: 单商品订单商品差评率
+    aliases: [单商品差评率]
+    unit: "%"
+    display_format: percentage
+    base_grain: review
+    aggregation: weighted_ratio
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/review_score_avg.md
+    display_order: 37
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.single_item_bad_review_rate, capabilities: [value, trend], dimensions: [], lineage_source: order_items + order_reviews, lineage_description: 仅一个商品行的店铺订单中评分小于等于 2 的评论占比}}
+  - metric_id: seller_product_attributed_review_score_avg
+    display_name: 商品关联平均评分
+    aliases: [商品关联评分]
+    unit: score
+    display_format: score
+    base_grain: review
+    aggregation: average
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/review_score_avg.md
+    display_order: 38
+    surfaces: [explorer, report, chat]
+    planning:
+      examples:
+        - "查询{display_name}"
+        - "哪些商品的评分较低"
+        - "商品评价分数如何"
+      semantic_terms: [低分的评价, 相对低分的评价, 低分商品]
+      intents: [商品评分, 商品评价, 低分商品]
+      limitations: "该指标是将订单评论关联到订单内商品的代理口径；商品维度拆解必须以当前范围实际开放的能力为准。"
+    implementations: {seller: {handler_key: seller.product_attributed_review_score, capabilities: [value, trend], dimensions: [], lineage_source: order_items + order_reviews, lineage_description: 订单评论关联至订单内每个商品的代理口径，多商品订单会按商品数加权}}
+  - metric_id: seller_product_attributed_bad_review_rate
+    display_name: 商品关联差评率
+    aliases: [商品关联差评]
+    unit: "%"
+    display_format: percentage
+    base_grain: review
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/review_score_avg.md
+    display_order: 39
+    surfaces: [explorer, report, chat]
+    planning:
+      examples:
+        - "查询{display_name}"
+        - "哪些商品的低分评论占比高"
+        - "差评较多的商品"
+      semantic_terms: [低分的评价, 相对低分的评价, 低分商品]
+      intents: [商品差评, 低分评论, 商品评价质量]
+      limitations: "该指标是将订单评论关联至订单内商品的代理口径；商品维度拆解必须以当前范围实际开放的能力为准。"
+    implementations: {seller: {handler_key: seller.product_attributed_bad_review_rate, capabilities: [value, trend], dimensions: [], lineage_source: order_items + order_reviews, lineage_description: 订单评论关联至订单内每个商品的代理口径，评分小于等于 2 的关联评论占比}}
+  - metric_id: seller_historical_returning_customer_count
+    display_name: 店铺历史回流客户数
+    aliases: [店铺回流客户数]
+    unit: customers
+    display_format: number
+    base_grain: customer
+    aggregation: distinct_count
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/repeat_customer_count.md
+    display_order: 32
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.returning_customer_count, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 此前已向同店购买、当前范围再次购买的去重客户}}
+  - metric_id: seller_historical_returning_customer_rate
+    display_name: 店铺历史回流客户率
+    aliases: [店铺回流率]
+    unit: "%"
+    display_format: percentage
+    base_grain: customer
+    aggregation: weighted_ratio
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/repeat_purchase_rate.md
+    display_order: 33
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.returning_customer_rate, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 历史回流客户数除以当前成交客户数}}
+  - metric_id: seller_new_customer_count
+    display_name: 店铺新客数
+    aliases: [店铺新客户数]
+    unit: customers
+    display_format: number
+    base_grain: customer
+    aggregation: distinct_count
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/customer_count.md
+    display_order: 34
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.new_customer_count, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 首次向该店铺购买日期落入当前范围的客户}}
+  - metric_id: seller_new_customer_rate
+    display_name: 店铺新客占比
+    aliases: [店铺新客率]
+    unit: "%"
+    display_format: percentage
+    base_grain: customer
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/customer_count.md
+    display_order: 35
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.new_customer_rate, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 店铺新客数除以当前成交客户数}}
+  - metric_id: seller_top1_product_gross_share
+    display_name: 店铺 Top 1 商品销售额占比
+    aliases: [Top1 商品占比]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 29
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.top1_product_gross_share, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 销售额最高商品占店铺商品金额比重}}
+  - metric_id: seller_top3_category_gross_share
+    display_name: 店铺 Top 3 品类销售额占比
+    aliases: [Top3 品类占比]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 30
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.top3_category_gross_share, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items + raw.products, lineage_description: 销售额最高三个品类占店铺商品金额比重}}
+  - metric_id: seller_new_product_gross_share
+    display_name: 店铺新品销售额占比
+    aliases: [新品销售占比]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 31
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.new_product_gross_share, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 首次在该店铺成交日期落入当前范围的商品销售额占比}}
+  - metric_id: seller_item_gross_value
+    display_name: 店铺商品金额总额
+    aliases: [店铺商品销售额]
+    unit: BRL
+    display_format: currency
+    base_grain: order
+    aggregation: sum
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 21
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.item_gross_value, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 已交付商品金额，不含运费}}
+  - metric_id: seller_avg_item_price
+    display_name: 店铺平均商品售价
+    aliases: [平均商品售价]
+    unit: BRL/item
+    display_format: currency
+    base_grain: order
+    aggregation: average
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 22
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.avg_item_price, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 已交付商品行价格平均值}}
+  - metric_id: seller_avg_freight_per_order
+    display_name: 店铺平均每单运费
+    aliases: [平均运费, 平均每单运费]
+    unit: BRL/order
+    display_format: currency
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/freight_value.md
+    display_order: 23
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.avg_freight_per_order, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 运费总额除以店铺订单数}}
+  - metric_id: seller_avg_payment_installments
+    display_name: 店铺平均分期数
+    aliases: [平均分期数]
+    unit: installments
+    display_format: number
+    base_grain: order
+    aggregation: average
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 24
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.avg_payment_installments, capabilities: [value, trend], dimensions: [], lineage_source: analytics.fact_order_payments, lineage_description: 分摊支付金额加权的平均分期数}}
+  - metric_id: seller_credit_card_payment_share
+    display_name: 店铺信用卡支付金额占比
+    aliases: [信用卡支付占比]
+    planning:
+      exact_aliases:
+        - 信用卡支付金额占比
+        - 信用卡支付金额的占比
+      semantic_terms:
+        - 信用卡支付金额比例
+        - 信用卡支付份额
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 25
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.credit_card_payment_share, capabilities: [value, trend], dimensions: [], lineage_source: analytics.fact_order_payments, lineage_description: 信用卡分摊支付金额占比}}
+  - metric_id: seller_boleto_payment_share
+    display_name: 店铺票据支付金额占比
+    aliases: [票据支付占比]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 26
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.boleto_payment_share, capabilities: [value, trend], dimensions: [], lineage_source: analytics.fact_order_payments, lineage_description: boleto 分摊支付金额占比}}
+  - metric_id: seller_active_product_count
+    display_name: 店铺活跃商品数
+    aliases: [活跃商品数]
+    planning:
+      exact_aliases:
+        - 有销售的商品数
+        - 每月有销售的商品数
+      semantic_terms:
+        - 当前月份有销售的去重商品数量
+        - 每月活跃商品数量
+    unit: products
+    display_format: number
+    base_grain: order
+    aggregation: distinct_count
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 27
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.active_product_count, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items, lineage_description: 当前范围有销售的去重商品数}}
+  - metric_id: seller_active_category_count
+    display_name: 店铺活跃品类数
+    aliases: [活跃品类数]
+    unit: categories
+    display_format: number
+    base_grain: order
+    aggregation: distinct_count
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 28
+    surfaces: [explorer, report, chat]
+    implementations: {seller: {handler_key: seller.active_category_count, capabilities: [value, trend], dimensions: [], lineage_source: analytics.v_delivered_order_items + raw.products, lineage_description: 当前范围有销售的去重商品品类数}}
+  - metric_id: seller_order_bad_review_rate
+    display_name: 店铺订单差评率
+    aliases: [店铺差评率]
+    unit: "%"
+    display_format: percentage
+    base_grain: review
+    aggregation: weighted_ratio
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/review_score_avg.md
+    display_order: 21
+    surfaces: [explorer, report, chat]
+    implementations:
+      seller:
+        handler_key: seller.bad_review_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: delivered seller orders + order reviews
+        lineage_description: 评分小于等于 2 的店铺订单评论 / 有评论的店铺订单；订单内商品去重
+  - metric_id: seller_items_per_order
+    display_name: 店铺平均每单商品数
+    aliases: [店铺件单价]
+    unit: items/order
+    display_format: number
+    base_grain: order
+    aggregation: average
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/avg_items_per_order.md
+    display_order: 22
+    surfaces: [explorer, report, chat]
+    implementations:
+      seller:
+        handler_key: seller.items_per_order
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_delivered_order_items
+        lineage_description: 每个店铺订单中的商品行数平均值
+  - metric_id: seller_freight_to_gmv_rate
+    display_name: 店铺运费率（占成交额）
+    aliases: [店铺运费率]
+    planning:
+      exact_aliases:
+        - 运费占成交额的比例
+        - 运费占成交额比例
+        - 店铺运费占成交额的比例
+      semantic_terms:
+        - 运费率占成交额
+        - 运费与成交额的比例
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/freight_value.md
+    display_order: 23
+    surfaces: [explorer, report, chat]
+    implementations:
+      seller:
+        handler_key: seller.freight_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_delivered_order_items
+        lineage_description: 运费 /（商品金额加运费）

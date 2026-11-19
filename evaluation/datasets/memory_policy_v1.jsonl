@@ -1,0 +1,3 @@
+{"case_id":"exact_duplicate","claim":"GMV下降10%","same_claim":" GMV下降10% ","task_type":"metric_query","metric_tags":["gmv"],"expected":"deduplicated"}
+{"case_id":"scope_conflict","claim":"GMV下降10%","same_claim":"GMV下降12%","task_type":"metric_query","metric_tags":["gmv"],"expected":"pending_review"}
+{"case_id":"different_scope","claim":"GMV下降10%","same_claim":"GMV下降10%","task_type":"metric_query","metric_tags":["gmv"],"scope_shift":"date","expected":"active"}

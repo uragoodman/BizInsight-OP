@@ -1,0 +1,13 @@
+{
+  "dataset_version": "phase12-v1",
+  "cases": [
+    {"id": "ambiguous-task-jump", "category": "task_memory", "expected": "clarification_required"},
+    {"id": "scope-changed-history", "category": "task_memory", "expected": "historical_reference_only"},
+    {"id": "revoked-long-term-memory", "category": "task_memory", "expected": "not_retrieved"},
+    {"id": "daily-token-exhausted", "category": "budget", "expected": "reject_new_llm_call"},
+    {"id": "provider-usage-missing", "category": "budget", "expected": "usage_unavailable"},
+    {"id": "malformed-structured-output", "category": "model_failure", "expected": "safe_fallback_or_failure"},
+    {"id": "unconfirmed-code-job", "category": "code_agent", "expected": "not_queued"},
+    {"id": "runner-timeout", "category": "code_agent", "expected": "cancelled_or_failed_audited"}
+  ]
+}

@@ -1,0 +1,80 @@
+groups:
+  - name: bizinsight-agent
+    rules:
+      - alert: AgentErrorRate
+        expr: increase(bizinsight_agent_error_total[5m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Agent runtime recorded an execution error.
+      - alert: AgentP95LatencyHigh
+        expr: histogram_quantile(0.95, sum(rate(bizinsight_agent_run_duration_seconds_bucket[5m])) by (le)) > 5
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Agent p95 latency exceeds five seconds.
+      - alert: McpTimeoutsDetected
+        expr: increase(bizinsight_agent_error_total[5m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Review MCP timeout and retry events in traces.
+      - alert: MemoryPreferenceDeadLetter
+        expr: increase(bizinsight_memory_preference_dead_letter_total[5m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: A user preference write or delete entered dead-letter state.
+      - alert: Mem0PreferenceHitRejected
+        expr: increase(bizinsight_mem0_preference_hit_rejected_total[5m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: Mem0 returned a preference candidate rejected by server-side validation.
+      - alert: MemoryPreferenceRegistryOutboxInconsistency
+        expr: increase(bizinsight_memory_preference_registry_outbox_inconsistency_total[5m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: A preference Registry/Outbox operation has remained pending for over one minute.
+      - alert: MemoryPreferenceOverlayFailure
+        expr: increase(bizinsight_memory_preference_overlay_failed_total[5m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+        annotations:
+          summary: A pending preference overlay failed and needs inspection.
+      - alert: MemoryPreferenceWorkerMetricsUnavailable
+        expr: up{job="memory-preference-worker"} == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Prometheus cannot scrape the memory preference worker.
+      - alert: MemoryMembershipErasureDeadLetter
+        expr: increase(bizinsight_memory_membership_erasure_dead_letter_total[5m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: A tenant membership memory-erasure job entered dead-letter state.
+      - alert: MemoryMembershipErasureStalled
+        expr: increase(bizinsight_memory_membership_erasure_stalled_total[5m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: A membership memory-erasure job has remained pending for over one minute.
+      - alert: MemoryPreferenceCleanerMetricsUnavailable
+        expr: up{job="memory-preference-cleaner"} == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Prometheus cannot scrape the independent preference cleaner.

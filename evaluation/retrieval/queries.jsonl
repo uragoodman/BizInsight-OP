@@ -1,0 +1,47 @@
+{"query_id": "gmv_dir_1", "query": "GMV是什么", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/gmv.md"]}
+{"query_id": "gmv_dir_2", "query": "GMV的计算口径是什么", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/gmv.md"]}
+{"query_id": "order_dir", "query": "订单量 order_count 怎么定义", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/order_count.md"]}
+{"query_id": "aov_dir", "query": "客单价如何计算", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/avg_order_value.md"]}
+{"query_id": "cust_dir", "query": "客户数 customer_count 口径", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/customer_count.md"]}
+{"query_id": "repeat_dir", "query": "复购率 repeat_purchase_rate 怎么定义", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/repeat_purchase_rate.md"]}
+{"query_id": "cancel_dir", "query": "退款率 cancel_rate 计算方式", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/cancel_rate.md"]}
+{"query_id": "freight_dir", "query": "运费 freight_value 统计范围", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/freight_value.md"]}
+{"query_id": "review_dir", "query": "评分 review_score_avg 口径", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/review_score_avg.md"]}
+{"query_id": "otd_dir", "query": "准时送达率 on_time_delivery_rate 定义", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/on_time_delivery_rate.md"]}
+{"query_id": "ddl_dir", "query": "发货延迟时长 delivery_delay_rate 怎么算", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/delivery_delay_rate.md"]}
+{"query_id": "risk_dir", "query": "风险分 risk_score 计算方式", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/risk_score.md"]}
+{"query_id": "gmv_para", "query": "平台成交总额怎么算", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/gmv.md"]}
+{"query_id": "order_para", "query": "一共成交了多少单", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/order_count.md"]}
+{"query_id": "aov_para", "query": "平均每单金额是多少", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/avg_order_value.md"]}
+{"query_id": "cust_para", "query": "有多少个购买用户", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/customer_count.md"]}
+{"query_id": "repeat_para", "query": "老客户回购比例怎么看", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/repeat_purchase_rate.md"]}
+{"query_id": "cancel_para", "query": "退货相关比例的统计口径是什么", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/cancel_rate.md"]}
+{"query_id": "freight_para", "query": "物流费用怎么统计", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/freight_value.md"]}
+{"query_id": "otd_para", "query": "按时发货的比例", "query_type": "paraphrase", "expected_doc_ids": ["docs/knowledge/metrics/on_time_delivery_rate.md"]}
+{"query_id": "gmv_boundary_1", "query": "取消订单是否计入GMV", "query_type": "boundary", "expected_doc_ids": ["docs/knowledge/metrics/gmv.md"], "expected_chunk_snippets": ["取消"]}
+{"query_id": "gmv_boundary_2", "query": "未支付订单算不算成交额", "query_type": "boundary", "expected_doc_ids": ["docs/knowledge/metrics/gmv.md"], "expected_chunk_snippets": ["支付"]}
+{"query_id": "cancel_boundary", "query": "退款成功但未退货是否计入退款率", "query_type": "boundary", "expected_doc_ids": ["docs/knowledge/metrics/cancel_rate.md"], "expected_chunk_snippets": ["退款"]}
+{"query_id": "order_boundary", "query": "未支付订单是否进入订单统计", "query_type": "boundary", "expected_doc_ids": ["docs/knowledge/metrics/order_count.md"], "expected_chunk_snippets": ["订单"]}
+{"query_id": "freight_boundary", "query": "退货产生的运费是否计入运费指标", "query_type": "boundary", "expected_doc_ids": ["docs/knowledge/metrics/freight_value.md"], "expected_chunk_snippets": ["运费"]}
+{"query_id": "aov_boundary", "query": "客单价是否包含运费", "query_type": "boundary", "expected_doc_ids": ["docs/knowledge/metrics/avg_order_value.md"], "expected_chunk_snippets": ["运费"]}
+{"query_id": "gmv_similar", "query": "GMV和支付金额有什么区别", "query_type": "similar", "expected_doc_ids": ["docs/knowledge/metrics/gmv.md"], "expected_chunk_snippets": ["支付"]}
+{"query_id": "cancel_similar", "query": "退款率和退货率有什么区别", "query_type": "similar", "expected_doc_ids": ["docs/knowledge/metrics/cancel_rate.md"], "expected_chunk_snippets": ["退款"]}
+{"query_id": "aov_similar", "query": "客单价和订单量是同一个指标吗", "query_type": "similar", "expected_doc_ids": ["docs/knowledge/metrics/avg_order_value.md"], "expected_chunk_snippets": ["客单价"]}
+{"query_id": "otd_similar", "query": "准时送达和发货延迟是一回事吗", "query_type": "similar", "expected_doc_ids": ["docs/knowledge/metrics/on_time_delivery_rate.md"], "expected_chunk_snippets": ["准时"]}
+{"query_id": "repeat_similar", "query": "复购率和客户数是同一个指标吗", "query_type": "similar", "expected_doc_ids": ["docs/knowledge/metrics/repeat_purchase_rate.md"], "expected_chunk_snippets": ["复购"]}
+{"query_id": "sop_anomaly", "query": "异常分析应该怎么做", "query_type": "sop", "expected_doc_ids": ["docs/knowledge/sop/anomaly_analysis.md"]}
+{"query_id": "sop_gmv_drop", "query": "GMV突然下降应该从哪些方向排查", "query_type": "sop", "expected_doc_ids": ["docs/knowledge/sop/anomaly_analysis.md"]}
+{"query_id": "sop_report", "query": "生成周报需要哪些模块", "query_type": "sop", "expected_doc_ids": ["docs/knowledge/templates/weekly_report.md"]}
+{"query_id": "sop_revenue", "query": "订单量上升但收入下降可能是什么原因", "query_type": "sop", "expected_doc_ids": ["docs/knowledge/sop/anomaly_analysis.md"]}
+{"query_id": "unanswer_ad", "query": "GMV是否包含广告收入", "query_type": "unanswerable", "expected_doc_ids": []}
+{"query_id": "unanswer_member", "query": "平台会员总数是多少", "query_type": "unanswerable", "expected_doc_ids": []}
+{"query_id": "leadtime_dir", "query": "平均配送时效 avg_delivery_lead_time 怎么算", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/avg_delivery_lead_time.md"]}
+{"query_id": "items_dir", "query": "平均每单商品数 avg_items_per_order 怎么定义", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/avg_items_per_order.md"]}
+{"query_id": "badreview_dir", "query": "差评率 bad_review_rate 如何计算", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/bad_review_rate.md"]}
+{"query_id": "freightrate_dir", "query": "运费率 freight_rate 统计口径", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/freight_rate.md"]}
+{"query_id": "funnel_dir", "query": "订单漏斗 order_funnel 是什么", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/order_funnel.md"]}
+{"query_id": "paytype_dir", "query": "支付方式分解 payment_type_breakdown 口径", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/payment_type_breakdown.md"]}
+{"query_id": "category_dir", "query": "商品品类分解 product_category_breakdown 怎么分析", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/product_category_breakdown.md"]}
+{"query_id": "repeatcust_dir", "query": "重复购买客户数 repeat_customer_count 怎么算", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/repeat_customer_count.md"]}
+{"query_id": "sellerstate_dir", "query": "按卖家州分解 seller_state_breakdown 怎么统计", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/seller_state_breakdown.md"]}
+{"query_id": "payfulfill_dir", "query": "支付与履约 payment_and_fulfillment 怎么定义", "query_type": "direct", "expected_doc_ids": ["docs/knowledge/metrics/payment_and_fulfillment.md"]}

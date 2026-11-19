@@ -1,0 +1,5 @@
+-r requirements.txt
+
+# Only required to download the Kaggle dataset and bootstrap the database.
+pandas
+kagglehub

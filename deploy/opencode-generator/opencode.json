@@ -1,0 +1,58 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "bizinsight/code-agent",
+  "small_model": "bizinsight/code-agent",
+  "enabled_providers": ["bizinsight"],
+  "share": "disabled",
+  "autoupdate": false,
+  "snapshot": false,
+  "provider": {
+    "bizinsight": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "BizInsight Internal Model Proxy",
+      "options": {
+        "baseURL": "{env:BIZINSIGHT_MODEL_PROXY_URL}",
+        "apiKey": "{env:BIZINSIGHT_MODEL_PROXY_TOKEN}",
+        "timeout": 600000
+      },
+      "models": {
+        "code-agent": {
+          "name": "Configured Code Analysis Model",
+          "tool_call": false,
+          "limit": {
+            "context": 64000,
+            "output": 16000
+          }
+        }
+      }
+    }
+  },
+  "agent": {
+    "governed-analysis": {
+      "description": "Generate one governed analysis artifact envelope without using tools.",
+      "mode": "primary",
+      "steps": 1,
+      "permission": {
+        "*": "deny"
+      }
+    },
+    "governed-security-review": {
+      "description": "Review one generated analysis artifact for concrete security risks without using tools.",
+      "mode": "primary",
+      "steps": 1,
+      "permission": {
+        "*": "deny"
+      }
+    }
+  },
+  "permission": {
+    "*": "deny",
+    "read": "deny",
+    "edit": "deny",
+    "bash": "deny",
+    "task": "deny",
+    "webfetch": "deny",
+    "websearch": "deny",
+    "external_directory": "deny"
+  }
+}

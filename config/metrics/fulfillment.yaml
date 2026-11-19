@@ -1,0 +1,149 @@
+planning_defaults:
+  examples: ["查询{display_name}", "查看{display_name}趋势"]
+  limitations: "履约指标受订单状态和时间字段完整性影响。"
+metrics:
+  - metric_id: on_time_delivery_rate
+    display_name: 准时送达率
+    aliases: [on_time_delivery_rate, on time delivery rate, 准时送达率, 准时率, 按时送达率]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/on_time_delivery_rate.md
+    display_order: 12
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: fulfillment.on_time_delivery_rate
+        capabilities: [value, trend, compare, period]
+        dimensions: []
+        lineage_source: analytics.fact_fulfillment
+        lineage_description: 准时送达订单数 / 已交付可比较订单数 × 100
+      seller:
+        handler_key: fulfillment.on_time_delivery_rate
+        capabilities: [value, trend, compare]
+        dimensions: []
+        lineage_source: analytics.v_seller_fulfillment
+        lineage_description: 店铺已排除多卖家订单
+
+  - metric_id: delivery_delay_rate
+    display_name: 延迟送达率
+    aliases: [delivery_delay_rate, delivery delay rate, 延迟送达率, 延迟率, 延期送达率]
+    planning:
+      semantic_terms: [延迟]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/delivery_delay_rate.md
+    display_order: 13
+    surfaces: [report, target, chat]
+    implementations:
+      platform:
+        handler_key: fulfillment.delivery_delay_rate
+        capabilities: [value, trend, compare, period]
+        dimensions: [customer_state, customer_city]
+        lineage_source: raw.orders
+        lineage_description: 延迟送达 / 已交付可比较订单数 × 100
+
+  - metric_id: avg_delivery_lead_time
+    display_name: 平均送达时长
+    aliases: [avg_delivery_lead_time, average delivery lead time, 平均送达时长, 平均配送天数, 送达时长]
+    unit: days
+    display_format: days
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/avg_delivery_lead_time.md
+    display_order: 17
+    surfaces: [report, target, chat]
+    implementations:
+      platform:
+        handler_key: fulfillment.avg_delivery_lead_time
+        capabilities: [value, trend, compare, period]
+        dimensions: [customer_state, customer_city]
+        lineage_source: raw.orders
+        lineage_description: 签收时间 − 下单时间的平均值（天）
+
+  - metric_id: avg_approval_lead_hours
+    display_name: 平均审批时长
+    aliases: [平均审批时长, 审批时长]
+    unit: hours
+    display_format: hours
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 18
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: fulfillment.approval_lead_hours
+        capabilities: [value, trend, compare, period]
+        dimensions: []
+        lineage_source: analytics.fact_fulfillment
+        lineage_description: 审批时间 − 下单时间的平均值（小时）
+      seller:
+        handler_key: fulfillment.approval_lead_hours
+        capabilities: [value, trend, compare]
+        dimensions: []
+        lineage_source: analytics.v_seller_fulfillment
+        lineage_description: 店铺已排除多卖家订单
+
+  - metric_id: avg_dispatch_lead_hours
+    display_name: 平均发货时长
+    aliases: [平均发货时长, 发货时长]
+    unit: hours
+    display_format: hours
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 19
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: fulfillment.dispatch_lead_hours
+        capabilities: [value, trend, compare, period]
+        dimensions: []
+        lineage_source: analytics.fact_fulfillment
+        lineage_description: 交承运商时间 − 审批时间的平均值（小时）
+      seller:
+        handler_key: fulfillment.dispatch_lead_hours
+        capabilities: [value, trend, compare]
+        dimensions: []
+        lineage_source: analytics.v_seller_fulfillment
+        lineage_description: 店铺已排除多卖家订单
+
+  - metric_id: avg_delivery_transit_hours
+    display_name: 平均配送时长
+    aliases: [平均配送时长, 配送时长]
+    unit: hours
+    display_format: hours
+    base_grain: order
+    aggregation: average
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 20
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: fulfillment.delivery_transit_hours
+        capabilities: [value, trend, compare, period]
+        dimensions: []
+        lineage_source: analytics.fact_fulfillment
+        lineage_description: 签收时间 − 交承运商时间的平均值（小时）
+      seller:
+        handler_key: fulfillment.delivery_transit_hours
+        capabilities: [value, trend, compare]
+        dimensions: []
+        lineage_source: analytics.v_seller_fulfillment
+        lineage_description: 店铺已排除多卖家订单

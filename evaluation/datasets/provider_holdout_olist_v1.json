@@ -1,0 +1,449 @@
+{
+  "dataset_version": "provider-holdout-olist-v1",
+  "source": {
+    "name": "Olist Brazilian E-Commerce Public Dataset",
+    "local_snapshot": "kagglehub\\datasets\\olistbr\\brazilian-ecommerce\\versions\\2",
+    "source_files_sha256": {
+      "olist_orders_dataset.csv": "8df58ef3d2d7e9944010f7beecd9b75367f5588ec6e3c91cec19ae3345ef9ecf",
+      "olist_order_items_dataset.csv": "0bc4d068c4fe38cbb01bd90e8746e3c613fe7b4baef75fab7b0e329701c3e279",
+      "olist_customers_dataset.csv": "983a422239e1712ded753b3bf9ecf47dc73f144d306029dcfa99e70a226883d2"
+    },
+    "gmv_definition": "sum(order_items.price + order_items.freight_value), grouped by purchase date",
+    "baseline": "previous calendar day; factor labels use symmetric two-factor decomposition of GMV = order_count × average order value"
+  },
+  "case_distribution": {
+    "order_led": 8,
+    "aov_led": 6,
+    "mixed_factors": 4,
+    "customer_state_concentrated": 4,
+    "source_day_missing": 2
+  },
+  "fixture_snapshot": "evaluation\\fixtures\\provider_holdout_olist_v1.json",
+  "fixture_snapshot_sha256": "bfb0b1cfb8de3bddff8ec439d1e567b4b8799931107f9605235506df881d50d0",
+  "cases": [
+    {
+      "id": "olist-holdout-01",
+      "category": "root_cause_longtail",
+      "pattern": "aov_led",
+      "query": "为什么 2018-05-01 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "avg_order_value"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-01",
+        "baseline_date": "2018-04-30",
+        "order_effect_share_abs": 0.3252,
+        "aov_effect_share_abs": 0.6748,
+        "customer_state_top_share_abs": 1.0181,
+        "customer_state_top_value": "RS"
+      }
+    },
+    {
+      "id": "olist-holdout-02",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-05-05 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-05",
+        "baseline_date": "2018-05-04",
+        "order_effect_share_abs": 0.8897,
+        "aov_effect_share_abs": 0.1103,
+        "customer_state_top_share_abs": 0.3862,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-03",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-05-08 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-08",
+        "baseline_date": "2018-05-07",
+        "order_effect_share_abs": 0.9542,
+        "aov_effect_share_abs": 0.0458,
+        "customer_state_top_share_abs": 0.7264,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-04",
+      "category": "root_cause_longtail",
+      "pattern": "aov_led",
+      "query": "为什么 2018-05-15 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "avg_order_value"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-15",
+        "baseline_date": "2018-05-14",
+        "order_effect_share_abs": 0.1469,
+        "aov_effect_share_abs": 0.8531,
+        "customer_state_top_share_abs": 0.3782,
+        "customer_state_top_value": "RJ"
+      }
+    },
+    {
+      "id": "olist-holdout-05",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-05-23 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-23",
+        "baseline_date": "2018-05-22",
+        "order_effect_share_abs": 0.8927,
+        "aov_effect_share_abs": 0.1073,
+        "customer_state_top_share_abs": 0.5463,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-06",
+      "category": "root_cause_longtail",
+      "pattern": "customer_state_concentrated",
+      "query": "为什么 2018-05-26 GMV 下降了？请找出 customer_state 维度贡献最大的分组和占比，说明这只是统计贡献，业务机制仍未确认。",
+      "expect": {
+        "reported_dimension_contribution": {
+          "dimension": "customer_state",
+          "dimension_value": "SP",
+          "contribution_share": 2.914,
+          "share_tolerance": 0.02
+        },
+        "business_cause_unresolved": true
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-26",
+        "baseline_date": "2018-05-25",
+        "order_effect_share_abs": 0.5672,
+        "aov_effect_share_abs": 0.4328,
+        "customer_state_top_share_abs": 2.914,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-07",
+      "category": "root_cause_longtail",
+      "pattern": "aov_led",
+      "query": "为什么 2018-05-27 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "avg_order_value"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-27",
+        "baseline_date": "2018-05-26",
+        "order_effect_share_abs": 0.0626,
+        "aov_effect_share_abs": 0.9374,
+        "customer_state_top_share_abs": 0.6382,
+        "customer_state_top_value": "MG"
+      }
+    },
+    {
+      "id": "olist-holdout-08",
+      "category": "root_cause_longtail",
+      "pattern": "customer_state_concentrated",
+      "query": "为什么 2018-05-29 GMV 下降了？请找出 customer_state 维度贡献最大的分组和占比，说明这只是统计贡献，业务机制仍未确认。",
+      "expect": {
+        "reported_dimension_contribution": {
+          "dimension": "customer_state",
+          "dimension_value": "PR",
+          "contribution_share": 2.965,
+          "share_tolerance": 0.02
+        },
+        "business_cause_unresolved": true
+      },
+      "source_ground_truth": {
+        "current_date": "2018-05-29",
+        "baseline_date": "2018-05-28",
+        "order_effect_share_abs": 0.3688,
+        "aov_effect_share_abs": 0.6312,
+        "customer_state_top_share_abs": 2.965,
+        "customer_state_top_value": "PR"
+      }
+    },
+    {
+      "id": "olist-holdout-09",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-06-02 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-06-02",
+        "baseline_date": "2018-06-01",
+        "order_effect_share_abs": 0.978,
+        "aov_effect_share_abs": 0.022,
+        "customer_state_top_share_abs": 0.8321,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-10",
+      "category": "root_cause_longtail",
+      "pattern": "aov_led",
+      "query": "为什么 2018-06-13 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "avg_order_value"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-06-13",
+        "baseline_date": "2018-06-12",
+        "order_effect_share_abs": 0.2341,
+        "aov_effect_share_abs": 0.7659,
+        "customer_state_top_share_abs": 0.9163,
+        "customer_state_top_value": "RJ"
+      }
+    },
+    {
+      "id": "olist-holdout-11",
+      "category": "root_cause_longtail",
+      "pattern": "customer_state_concentrated",
+      "query": "为什么 2018-06-15 GMV 下降了？请找出 customer_state 维度贡献最大的分组和占比，说明这只是统计贡献，业务机制仍未确认。",
+      "expect": {
+        "reported_dimension_contribution": {
+          "dimension": "customer_state",
+          "dimension_value": "SP",
+          "contribution_share": 4.6311,
+          "share_tolerance": 0.02
+        },
+        "business_cause_unresolved": true
+      },
+      "source_ground_truth": {
+        "current_date": "2018-06-15",
+        "baseline_date": "2018-06-14",
+        "order_effect_share_abs": 0.5839,
+        "aov_effect_share_abs": 0.4161,
+        "customer_state_top_share_abs": 4.6311,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-12",
+      "category": "root_cause_longtail",
+      "pattern": "mixed_factors",
+      "query": "为什么 2018-06-19 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-06-19",
+        "baseline_date": "2018-06-18",
+        "order_effect_share_abs": 0.6235,
+        "aov_effect_share_abs": 0.3765,
+        "customer_state_top_share_abs": 5.8654,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-13",
+      "category": "root_cause_longtail",
+      "pattern": "aov_led",
+      "query": "为什么 2018-06-26 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "avg_order_value"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-06-26",
+        "baseline_date": "2018-06-25",
+        "order_effect_share_abs": 0.067,
+        "aov_effect_share_abs": 0.933,
+        "customer_state_top_share_abs": 1.5015,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-14",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-06-27 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-06-27",
+        "baseline_date": "2018-06-26",
+        "order_effect_share_abs": 0.8419,
+        "aov_effect_share_abs": 0.1581,
+        "customer_state_top_share_abs": 0.9996,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-15",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-06-30 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-06-30",
+        "baseline_date": "2018-06-29",
+        "order_effect_share_abs": 0.8928,
+        "aov_effect_share_abs": 0.1072,
+        "customer_state_top_share_abs": 0.4351,
+        "customer_state_top_value": "RJ"
+      }
+    },
+    {
+      "id": "olist-holdout-16",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-07-06 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-07-06",
+        "baseline_date": "2018-07-05",
+        "order_effect_share_abs": 0.9065,
+        "aov_effect_share_abs": 0.0935,
+        "customer_state_top_share_abs": 0.3636,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-17",
+      "category": "root_cause_longtail",
+      "pattern": "customer_state_concentrated",
+      "query": "为什么 2018-07-10 GMV 下降了？请找出 customer_state 维度贡献最大的分组和占比，说明这只是统计贡献，业务机制仍未确认。",
+      "expect": {
+        "reported_dimension_contribution": {
+          "dimension": "customer_state",
+          "dimension_value": "DF",
+          "contribution_share": 2.458,
+          "share_tolerance": 0.02
+        },
+        "business_cause_unresolved": true
+      },
+      "source_ground_truth": {
+        "current_date": "2018-07-10",
+        "baseline_date": "2018-07-09",
+        "order_effect_share_abs": 0.6013,
+        "aov_effect_share_abs": 0.3987,
+        "customer_state_top_share_abs": 2.458,
+        "customer_state_top_value": "DF"
+      }
+    },
+    {
+      "id": "olist-holdout-18",
+      "category": "root_cause_longtail",
+      "pattern": "mixed_factors",
+      "query": "为什么 2018-07-11 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-07-11",
+        "baseline_date": "2018-07-10",
+        "order_effect_share_abs": 0.533,
+        "aov_effect_share_abs": 0.467,
+        "customer_state_top_share_abs": 17.7753,
+        "customer_state_top_value": "RJ"
+      }
+    },
+    {
+      "id": "olist-holdout-19",
+      "category": "root_cause_longtail",
+      "pattern": "mixed_factors",
+      "query": "为什么 2018-07-13 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "avg_order_value"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-07-13",
+        "baseline_date": "2018-07-12",
+        "order_effect_share_abs": 0.4991,
+        "aov_effect_share_abs": 0.5009,
+        "customer_state_top_share_abs": 88.8092,
+        "customer_state_top_value": "GO"
+      }
+    },
+    {
+      "id": "olist-holdout-20",
+      "category": "root_cause_longtail",
+      "pattern": "aov_led",
+      "query": "为什么 2018-07-20 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "avg_order_value"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-07-20",
+        "baseline_date": "2018-07-19",
+        "order_effect_share_abs": 0.0965,
+        "aov_effect_share_abs": 0.9035,
+        "customer_state_top_share_abs": 0.5559,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-21",
+      "category": "root_cause_longtail",
+      "pattern": "mixed_factors",
+      "query": "为什么 2018-07-25 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-07-25",
+        "baseline_date": "2018-07-24",
+        "order_effect_share_abs": 0.6574,
+        "aov_effect_share_abs": 0.3426,
+        "customer_state_top_share_abs": 44.4709,
+        "customer_state_top_value": "ES"
+      }
+    },
+    {
+      "id": "olist-holdout-22",
+      "category": "root_cause_longtail",
+      "pattern": "order_led",
+      "query": "为什么 2018-07-28 GMV 下降了？判断订单量和客单价中主要的统计解释因素。",
+      "expect": {
+        "found_factor": "order_count"
+      },
+      "source_ground_truth": {
+        "current_date": "2018-07-28",
+        "baseline_date": "2018-07-27",
+        "order_effect_share_abs": 0.7462,
+        "aov_effect_share_abs": 0.2538,
+        "customer_state_top_share_abs": 1.239,
+        "customer_state_top_value": "SP"
+      }
+    },
+    {
+      "id": "olist-holdout-23",
+      "category": "root_cause_longtail",
+      "pattern": "source_day_missing",
+      "query": "为什么 2016-09-16 GMV 无法确认？请核对是否有数据。",
+      "expect": {
+        "abstain": true
+      },
+      "source_ground_truth": {
+        "current_date": "2016-09-16",
+        "missing": true
+      }
+    },
+    {
+      "id": "olist-holdout-24",
+      "category": "root_cause_longtail",
+      "pattern": "source_day_missing",
+      "query": "为什么 2016-09-17 GMV 无法确认？请核对是否有数据。",
+      "expect": {
+        "abstain": true
+      },
+      "source_ground_truth": {
+        "current_date": "2016-09-17",
+        "missing": true
+      }
+    }
+  ]
+}

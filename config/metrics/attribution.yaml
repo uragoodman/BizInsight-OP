@@ -1,0 +1,218 @@
+# Conservative, explicit attribution support. Unsupported metrics remain
+# queryable for ordinary analysis; they simply cannot enter attribution.
+metrics:
+  gmv:
+    scopes:
+      platform:
+        methods: [additive_change_v1, product_shapley_v1]
+        dimensions: [customer_state, customer_city, seller_state, product_category]
+        required_data:
+          additive_change_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals]
+          product_shapley_v1: [baseline_factor_values, current_factor_values]
+        factor_specs:
+          product_shapley_v1:
+            - factor_id: order_count
+              kind: sum
+              metric_id: order_count
+            - factor_id: avg_order_value
+              kind: ratio_of_sums
+              numerator_metric: gmv
+              denominator_metric: order_count
+      seller:
+        methods: [additive_change_v1]
+        dimensions: [product_category, month_position]
+        required_data:
+          additive_change_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals]
+    limitation: "平台范围支持可加总维度拆解及 GMV=订单量×客单价的二因子 Shapley 展示；店铺范围仅支持专用查询已验证的品类和月内时段拆解。"
+  order_count:
+    scopes:
+      platform:
+        methods: [additive_change_v1, proportional_overlap_v1]
+        dimensions: [customer_state, customer_city, seller_state, product_category]
+        required_data:
+          additive_change_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals]
+          proportional_overlap_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals, allocation_method]
+      seller:
+        methods: [additive_change_v1, proportional_overlap_v1]
+        dimensions: [product_category, month_position]
+        required_data:
+          additive_change_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals]
+          proportional_overlap_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals, allocation_method]
+    limitation: "非重叠维度支持可加总拆解；商品品类订单量按订单涉及的品类数比例分摊，结果为订单等价量，不等于各品类独立去重订单数。"
+  freight_value:
+    scopes:
+      platform:
+        methods: [additive_change_v1]
+        dimensions: [customer_state, customer_city, seller_state, product_category]
+        required_data:
+          additive_change_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals]
+      seller:
+        methods: [additive_change_v1]
+        dimensions: [product_category, month_position]
+        required_data:
+          additive_change_v1: [baseline_total, current_total, baseline_group_totals, current_group_totals]
+    limitation: "仅声明范围内已验证维度支持可加总拆解。"
+  avg_order_value:
+    scopes:
+      platform:
+        methods: [symmetric_ratio_v1, symmetric_mix_within_v1]
+        dimensions: [month_position]
+        required_data:
+          symmetric_ratio_v1: [baseline_numerator, current_numerator, baseline_denominator, current_denominator]
+          symmetric_mix_within_v1: [grouped_numerator, grouped_denominator, complete_group_population]
+    limitation: "平台报告快照同时包含成交总额与订单量时，可对客单价进行分子/分母对称分解；平台一行一订单事实表支持按月内日期位置进行组内/构成分解；不支持商品或支付方式拆解，也不作因果解释。"
+  freight_rate:
+    scopes:
+      platform:
+        methods: [symmetric_ratio_v1, symmetric_mix_within_v1]
+        dimensions: [month_position]
+        required_data:
+          symmetric_ratio_v1: [baseline_numerator, current_numerator, baseline_denominator, current_denominator]
+          symmetric_mix_within_v1: [grouped_numerator, grouped_denominator, complete_group_population]
+    limitation: "平台范围可用报告快照作分子/分母分解，并可按月初/月中/月末完整订单分组作组内/构成分解；不支持商品、卖家或支付方式拆解，也不作因果解释。"
+  review_score_avg:
+    scopes: {}
+    limitation: "平均评分尚无可验证的分组分子、分母归因查询。"
+  bad_review_rate:
+    scopes: {}
+    limitation: "差评率尚无可验证的组内率与构成效应查询契约。"
+  cancel_rate:
+    scopes: {}
+    limitation: "取消率尚无已验证的归因分子、分母数据契约。"
+  review_comment_rate:
+    scopes: {}
+    limitation: "评论率尚无已验证的归因分子、分母数据契约。"
+  payment_value:
+    scopes: {}
+    limitation: "支付金额的归因查询能力尚未声明。"
+  installment_order_share:
+    scopes: {}
+    limitation: "分期订单占比尚无已验证的比率归因数据契约。"
+  on_time_delivery_rate:
+    scopes: {}
+    limitation: "准时送达率尚无已验证的分子、分母和分组权重数据契约。"
+  delivery_delay_rate:
+    scopes: {}
+    limitation: "延迟送达率尚无已验证的分子、分母和分组权重数据契约。"
+  avg_delivery_lead_time:
+    scopes: {}
+    limitation: "平均送达时长尚无已验证的分组时长总和与订单数数据契约。"
+  avg_approval_lead_hours:
+    scopes: {}
+    limitation: "平均审核时长尚无已验证的归因分子、分母查询契约。"
+  avg_dispatch_lead_hours:
+    scopes: {}
+    limitation: "平均发货时长尚无已验证的归因分子、分母查询契约。"
+  avg_delivery_transit_hours:
+    scopes: {}
+    limitation: "平均运输时长尚无已验证的归因分子、分母查询契约。"
+  order_approval_rate:
+    scopes: {}
+    limitation: "订单审核率尚无已验证的比率归因数据契约。"
+  order_shipment_rate:
+    scopes: {}
+    limitation: "订单发货率尚无已验证的比率归因数据契约。"
+  order_final_delivery_rate:
+    scopes: {}
+    limitation: "最终送达率尚无已验证的比率归因数据契约。"
+  customer_count:
+    scopes: {}
+    limitation: "去重客户跨维度可能重叠，当前没有集合级拆解能力，不能按可加总指标归因。"
+  repeat_customer_count:
+    scopes: {}
+    limitation: "去重客户集合可能跨分组重叠，当前没有集合级归因能力。"
+  repeat_purchase_rate:
+    scopes:
+      platform:
+        methods: [symmetric_ratio_v1]
+        dimensions: []
+        required_data:
+          symmetric_ratio_v1: [baseline_numerator, current_numerator, baseline_denominator, current_denominator]
+    limitation: "平台报告快照同时包含复购客户数与客户数时，可对复购率进行分子/分母对称分解；依赖报告中两个注册因子均可用。"
+  seller_free_shipping_order_rate:
+    scopes: {}
+    limitation: "店铺免运费订单率尚无组内率/构成效应数据契约。"
+  seller_avg_early_delivery_days:
+    scopes: {}
+    limitation: "提前送达天数尚无已验证的分组分子、分母归因契约。"
+  seller_avg_late_delivery_days:
+    scopes: {}
+    limitation: "延迟送达天数尚无已验证的分组分子、分母归因契约。"
+  seller_avg_delivery_estimate_abs_error_days:
+    scopes: {}
+    limitation: "预计送达误差尚无已验证的分组分子、分母归因契约。"
+  seller_p90_order_to_delivery_days:
+    scopes: {}
+    limitation: "分位数指标需分布级证据；当前未声明可用的分布位移归因方法。"
+  seller_missing_delivery_timestamp_rate:
+    scopes: {}
+    limitation: "缺失签收时间率尚无已验证的比率归因数据契约。"
+  seller_single_item_order_product_review_score_avg:
+    scopes: {}
+    limitation: "商品评论样本代理指标尚无商品级组内分子、分母归因查询。"
+  seller_single_item_order_product_bad_review_rate:
+    scopes: {}
+    limitation: "商品差评率代理指标尚无已验证的组内率归因查询。"
+  seller_product_attributed_review_score_avg:
+    scopes: {}
+    limitation: "按订单商品代理关联的评分均值存在多商品评论归属限制，未声明归因能力。"
+  seller_product_attributed_bad_review_rate:
+    scopes: {}
+    limitation: "按订单商品代理关联的差评率未声明可验证的组内率归因能力。"
+  seller_historical_returning_customer_count:
+    scopes: {}
+    limitation: "回流客户为去重集合，跨维度可能重叠，当前不支持集合归因。"
+  seller_historical_returning_customer_rate:
+    scopes: {}
+    limitation: "回流率尚无完整的分子、分母与分组权重数据契约。"
+  seller_new_customer_count:
+    scopes: {}
+    limitation: "新客为去重集合，当前未实现不重叠集合级拆解。"
+  seller_new_customer_rate:
+    scopes: {}
+    limitation: "新客率尚无完整的组内率与构成效应数据契约。"
+  seller_top1_product_gross_share:
+    scopes: {}
+    limitation: "Top1 商品份额是排序派生指标，当前没有可验证的排名变化归因方法。"
+  seller_top3_category_gross_share:
+    scopes: {}
+    limitation: "Top3 品类份额受动态排名影响，当前没有可验证的排名变化归因方法。"
+  seller_new_product_gross_share:
+    scopes: {}
+    limitation: "新品销售额份额尚无已验证的分子、分母与组内贡献数据契约。"
+  seller_item_gross_value:
+    scopes: {}
+    limitation: "店铺商品金额尚未声明可验证的归因查询维度。"
+  seller_avg_item_price:
+    scopes: {}
+    limitation: "商品均价尚无分组金额与商品数量权重的归因查询契约。"
+  seller_avg_freight_per_order:
+    scopes: {}
+    limitation: "平均每单运费尚无分组运费总额与订单数权重的归因查询契约。"
+  seller_avg_payment_installments:
+    scopes: {}
+    limitation: "平均分期数尚无适用于归因的分组加权分子、分母查询。"
+  seller_credit_card_payment_share:
+    scopes: {}
+    limitation: "信用卡支付份额尚无已验证的支付方式构成分解契约。"
+  seller_boleto_payment_share:
+    scopes: {}
+    limitation: "Boleto 支付份额尚无已验证的支付方式构成分解契约。"
+  seller_active_product_count:
+    scopes: {}
+    limitation: "活跃商品数为去重集合，当前没有集合级变化归因。"
+  seller_active_category_count:
+    scopes: {}
+    limitation: "活跃品类数为去重集合，当前没有集合级变化归因。"
+  seller_order_bad_review_rate:
+    scopes: {}
+    limitation: "订单差评率尚无组内率与构成效应的已验证查询契约。"
+  seller_items_per_order:
+    scopes: {}
+    limitation: "每单商品数均值尚无适用的分组加权归因数据契约。"
+  avg_items_per_order:
+    scopes: {}
+    limitation: "平台每单商品数均值尚无适用的分组加权归因数据契约。"
+  seller_freight_to_gmv_rate:
+    scopes: {}
+    limitation: "运费/GMV 比率尚无已验证的分子、分母与组内权重归因契约。"

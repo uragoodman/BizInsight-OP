@@ -1,0 +1,11 @@
+-r requirements.txt
+
+# Test, evaluation, and local report-development tooling.
+pytest==9.1.1
+rich
+tabulate
+matplotlib
+ruff==0.15.1
+mypy==1.19.1
+# The Ragas compatibility shim imports langchain-community during test collection.
+langchain-community>=0.4,<1

@@ -1,0 +1,24 @@
+{
+  "scorer_version": "provider-candidate-run-v5",
+  "previous_version": "provider-candidate-run-v4",
+  "base_scorer_version": "root-cause-run-v2",
+  "status": "candidate_protocol_only_not_global_default",
+  "change_reason": "Align the candidate scorer with the current Critic lifecycle contract: llm_review.status is a final status (passed/failed/incomplete), not the old intermediate 'invoked' value. Require each optional review to bind to its actual Critic logical call and SDK attempt.",
+  "unchanged": [
+    "Candidate IDs, questions, scope, periods, independent truth, registered methods, tolerances, units, and denominators.",
+    "Full requires groundedness, completeness, and consistency to complete with passed verdicts and an approved final Critic for task acceptance.",
+    "Off requires evaluation_ablation for the three reviews and zero optional Critic calls; deterministic review remains required.",
+    "Evidence, numeric, output, causal-boundary, execution, and completed-presentation requirements remain unchanged from v4.",
+    "Historical v1-v4 functions, scores, and run records remain preserved and are not rewritten."
+  ],
+  "status_contract": {
+    "full_review_execution_complete": "Each of the three review entries has completion_status=completed, a recognized verdict, and call_ids/sdk_attempt_ids that map to successful Critic extract calls and their actual attempts.",
+    "full_task_acceptance": "Review execution is complete, every verdict is passed, and the final Critic status is approved, in addition to all v4 task checks.",
+    "off_review_execution_complete": "llm_review.mode=critic_llm_review_off, status=evaluation_ablation, all three verdicts=evaluation_ablation, and no Critic extract calls.",
+    "unknown_or_missing_bindings": "Fail closed; never inferred from an aggregate status alone."
+  },
+  "not_claimed": [
+    "No tolerance, candidate truth, task denominator, or acceptance threshold is relaxed.",
+    "This scorer revision is not evidence of model quality improvement and does not authorize or execute Provider calls."
+  ]
+}

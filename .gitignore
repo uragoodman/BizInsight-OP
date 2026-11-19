@@ -1,0 +1,118 @@
+# Python bytecode and test caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments and local package state
+.venv/
+venv/
+env/
+ENV/
+.conda/
+pip-wheel-metadata/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# IDE / OS local files
+.vscode/
+.idea/
+.claude/
+.agents/
+.agent/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Runtime data, traces, caches, and generated artifacts
+/data/
+!data/.gitkeep
+logs/
+*.log
+
+# Temporary test artifacts
+.pytest-tmp-*/
+pytest-phase11-*-tmp*/
+
+# OS / process crash dumps
+*.stackdump
+
+# Auto-generated skill lock file (Claude Code)
+skills-lock.json
+
+# Personal documents not intended for the repository
+*简历*
+*面试*.md
+*面经*
+*面试经验*
+
+# Downloaded datasets and large local data
+/kagglehub/
+*.csv
+*.parquet
+*.xlsx
+*.xls
+*.sqlite
+*.db
+
+# Local model/vector-store caches
+/qdrant_storage/
+/storage/
+/data/cache/
+/data/rag/index_manifest.json
+
+# Local visual/material assets not required for source review
+/assets/
+
+# Image files (not needed in source review)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.ico
+*.webp
+*.tiff
+*.tif
+
+# 面试笔记使用的可追踪教学图
+!ZTODO/assets/*.png
+*.svg
+
+# Build outputs
+dist/
+build/
+web/node_modules/
+web/dist/
+*.egg-info/
+
+CLAUDE.md
+web/tests/e2e/.e2e-account.json
+web/test-results/
+web/playwright-report/
+
+# Local-only generated experiment artifacts (keep summaries and frozen inputs tracked)
+/.tmp/
+/docs/testing/provider_candidate_freeze_20261014_v3/offline_entry_preflight/runs/*/workflow_smoke/traces/
+/docs/testing/registered_numeric_decomposition_critic_ablation_20261015/authorization_nc03_pair5_20261015/
+/docs/testing/registered_numeric_decomposition_critic_ablation_20261015/launcher_runs/
+/docs/testing/registered_numeric_decomposition_critic_ablation_20261015/pair_stop_revision_20261015_root/
+/docs/testing/registered_numeric_decomposition_critic_ablation_20261015/scorer_v4_rescore/
+/docs/testing/registered_numeric_decomposition_critic_ablation_20261015_v4/offline_preflight/
+/docs/testing/registered_numeric_decomposition_critic_ablation_20261015_v4/preflight_results/
+/docs/testing/registered_numeric_decomposition_critic_ablation_20261015_v4/results/
+
+# Locally supplied knowledge corpus; never commit private source documents.
+/docs/knowledge/

@@ -1,0 +1,47 @@
+{
+  "scorer_version": "provider-candidate-run-v3",
+  "previous_version": "provider-candidate-run-v2",
+  "base_scorer_version": "root-cause-run-v2",
+  "protocol_id": "provider-critic-ablation-candidate-17",
+  "status": "candidate_protocol_only_not_global_default",
+  "version_change_reason": "v2 checked final output units through one expected metric/component unit assumption. v3 separates registered metric level, absolute change, component contribution, and optional relative-change units, with percent and percentage points kept distinct.",
+  "changes_from_v1": [
+    "Retain all v1 evidence, numeric truth, execution, terminal state and Critic-arm checks.",
+    "Numeric decomposition output is checked through AnalysisPresentation.metric_decomposition: metric, platform scope, baseline/current period and values, delta, unit, registered method, factor set/values/units, descriptive nature, and evidence IDs.",
+    "Statistical contribution output is checked through the matching ChangeCard and ContributionCard: metric, platform scope, periods, baseline/current/delta, metric and contribution units, dimension/method, all expected groups and deltas, descriptive nature, and evidence IDs. Causal proof is not required.",
+    "Final answer text is checked separately from the card: registered metric label, explicitly labeled baseline/current periods and values, signed/directional change, units, and every expected factor/group value. The visible structured card must carry valid evidence IDs; optional inline answer citations, if present, must resolve to the same run.",
+    "Text value checks parse contextual numeric claims and apply the candidate's absolute tolerance after displayed rounding; number-string presence alone is insufficient.",
+    "If required text cannot be deterministically mapped using candidate-saved registry labels and period aliases, manual_review_required is set and automatic task acceptance fails pending human review. No LLM judge is called.",
+    "Full and off arms use identical final-output checks; Critic execution requirements remain a separate arm-specific check.",
+    "A correct card cannot mask a wrong or incomplete answer, and a correct answer cannot mask a wrong card. Partial results remain distinct from completed task acceptance."
+  ],
+  "preserved_v1": "evaluation/provider_candidate_scoring_version_v1.json; callable scorer: evaluation.provider_candidate_protocol.score_provider_candidate_run_v1",
+  "tolerance_source": "Candidate absolute tolerance and two-decimal display rule are recorded per candidate from reviewed artifacts; no tolerance is widened by observing model output.",
+  "denominator": "Unchanged: 17 cases x 2 arms x 3 replicates = 102 planned case-arm-replicate records.",
+  "required_arms": {
+    "full": [
+      "groundedness",
+      "completeness",
+      "consistency"
+    ],
+    "off": [
+      "evaluation_ablation for all three; zero critic-node optional LLM calls"
+    ]
+  },
+  "known_protocol_gap": null,
+  "changes_from_v2": [
+    "Retain all v2 evidence, numeric truth, execution, arm review, structured card, final answer, rounding, and manual-review checks.",
+    "Numeric decomposition cards independently validate metric_unit, change_unit, and each factor component_unit.",
+    "For percent-valued metrics, metric level uses %, absolute change and registered numeric decomposition contributions use percentage_points; relative delta/baseline remains %.",
+    "Text checks use separate, non-equivalent alias sets for metric, absolute change, components, and explicitly stated relative change. A relative-change claim is checked against its derived percent value.",
+    "Source evidence labeled % does not establish that the user-facing component unit is correct; output must satisfy the registered component unit.",
+    "Non-percent metrics retain the candidate registry/output contract; monetary, count, and AOV units are not inferred from a generic label.",
+    "ChangeCard still has no unit field; statistical comparison metric/change units remain a documented schema gap and cannot auto-pass when they cannot be distinguished.",
+    "ChangeCard unit-contract gap is closed in the business schema and actual answer-node projection; previous pre-fix candidate artifacts and result remain preserved."
+  ],
+  "preserved_v2": "evaluation/provider_candidate_scoring_version_v2.json; callable implementation snapshot: evaluation/provider_candidate_protocol_v2.py; candidate artifacts: docs/testing/provider_candidate_protocol_17_20261013/*_v2.*",
+  "closed_protocol_gaps": [
+    "ChangeCard now carries nullable unit, change_unit, and delta_ratio_unit; v3 checks the registered metric unit, absolute change unit, and relative-ratio unit independently.",
+    "The answer node populates these fields using the metric registry and compare operation semantics. Missing/unknown metric registration yields null metric and absolute-delta units rather than a guessed unit."
+  ]
+}

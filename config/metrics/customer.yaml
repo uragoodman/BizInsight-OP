@@ -1,0 +1,104 @@
+planning_defaults:
+  examples: ["查询{display_name}", "查看{display_name}趋势"]
+  limitations: "客户指标按已交付订单与当前时间范围计算。"
+metrics:
+  - metric_id: customer_count
+    display_name: 客户数
+    aliases: [customer_count, 客户数, 成交客户数, 客户数量]
+    planning:
+      semantic_terms: [客户]
+    unit: customers
+    display_format: number
+    base_grain: customer
+    aggregation: distinct_count
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/customer_count.md
+    display_order: 4
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: customer.customer_count
+        capabilities: [value, trend, compare, breakdown, period]
+        dimensions: [customer_state, customer_city, payment_type]
+        lineage_source: analytics.v_delivered_orders
+        lineage_description: 仅已交付订单的去重客户数
+      seller:
+        handler_key: customer.customer_count
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.fact_order_items + analytics.fact_orders
+        lineage_description: 底层事实血缘；受控查询直接读取 analytics.v_delivered_order_items 与 analytics.v_delivered_orders，按卖家及 purchase_date 过滤后按 customer_unique_id 去重计数
+
+  - metric_id: repeat_customer_count
+    display_name: 复购客户数
+    aliases: [复购客户数, 回头客数]
+    unit: customers
+    display_format: number
+    base_grain: customer
+    aggregation: distinct_count
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/repeat_customer_count.md
+    display_order: 7
+    surfaces: [report, target, chat]
+    implementations:
+      platform:
+        handler_key: customer.repeat_customer_count
+        capabilities: [value, trend, compare, period]
+        dimensions: [customer_state, customer_city]
+        lineage_source: analytics.fact_orders
+        lineage_description: 底层事实血缘为 analytics.fact_orders；单点 SQL 直接读取其已交付订单视图 analytics.v_delivered_orders
+
+  - metric_id: repeat_purchase_rate
+    display_name: 复购率
+    aliases: [repeat_purchase_rate, repeat purchase rate, 复购率, 重复购买率, 回购率]
+    planning:
+      semantic_terms: [复购]
+    unit: "%"
+    display_format: percentage
+    base_grain: customer
+    aggregation: weighted_ratio
+    period_aggregation:
+      kind: weighted_ratio
+      numerator_metric: repeat_customer_count
+      denominator_metric: customer_count
+      multiplier: 100.0
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/repeat_purchase_rate.md
+    display_order: 8
+    surfaces: [report, target, chat]
+    implementations:
+      platform:
+        handler_key: customer.repeat_purchase_rate
+        capabilities: [value, trend, compare, period]
+        dimensions: [customer_state, customer_city]
+        lineage_source: analytics.fact_orders
+        lineage_description: 底层事实血缘为 analytics.fact_orders；组成查询直接读取其已交付订单视图 analytics.v_delivered_orders
+      seller:
+        handler_key: customer.repeat_purchase_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_delivered_order_items + analytics.v_delivered_orders
+        lineage_description: 当日当前卖家已交付订单客户中，购买日期早于当日且曾向同一卖家完成已交付订单的去重客户占比；历史需覆盖完整授权范围，同日多次购买不算此前日期复购
+
+  - metric_id: avg_items_per_order
+    display_name: 平均每单商品数
+    aliases: [平均每单件数, 件单价]
+    unit: items/order
+    display_format: number
+    base_grain: order
+    aggregation: average
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/avg_items_per_order.md
+    display_order: 11
+    surfaces: [report, target, chat]
+    implementations:
+      platform:
+        handler_key: customer.avg_items_per_order
+        capabilities: [value, trend, compare, period]
+        dimensions: [customer_state, customer_city]
+        lineage_source: analytics.fact_orders
+        lineage_description: 底层事实血缘为 analytics.fact_orders；单点 SQL 直接读取其已交付订单视图 analytics.v_delivered_orders

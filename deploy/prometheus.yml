@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: bizinsight-agent
+    static_configs:
+      - targets: ["api:8000"]
+  - job_name: memory-preference-worker
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["memory-preference-worker:9101"]
+  - job_name: memory-preference-cleaner
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["memory-preference-cleaner:9101"]
+
+rule_files:
+  - /etc/prometheus/alerts.yml

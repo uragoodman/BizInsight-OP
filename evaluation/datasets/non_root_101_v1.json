@@ -1,0 +1,822 @@
+{
+  "dataset_version": "v1-non-root-101",
+  "purpose": "Independent executable coverage manifest; not Provider business accuracy.",
+  "total_cases": 101,
+  "category_counts": {
+    "analysis_report": 25,
+    "routing_memory": 18,
+    "auth_security": 18,
+    "coding_agent": 25,
+    "reliability": 15
+  },
+  "cases": [
+    {
+      "id": "nr-analysis_report-01",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_gmv_metric",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-02",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_metric_trend",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-03",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_metric_compare",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-04",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_metric_breakdown",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-05",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_customer_count_metric",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-06",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_customer_count_trend",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-07",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_repeat_purchase_rate_compare",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-08",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_queries_gmv_by_seller_state_breakdown",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-09",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_metric_value_tool_can_be_called_independently",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-10",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_metric_trend_tool_can_be_called_independently",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-11",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_metric_compare_tool_can_be_called_independently",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-12",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_metric_breakdown_tool_can_be_called_independently",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-13",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_customer_count_tool_can_be_called_independently",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-14",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_new_metric_trend_tool_can_be_called_independently",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-15",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_new_metric_compare_tool_can_be_called_independently",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-16",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_breakdown_supports_seller_state_dimension",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-17",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_breakdown_supports_product_category_dimension",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-18",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_mcp_breakdown_supports_payment_type_dimension",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-19",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_trace_records_mcp_invocation_details",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-20",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_chat.py::test_chat_route_returns_trace",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-21",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_report_insights.py::test_validate_insights_accepts_grounded_factual",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-22",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_report_insights.py::test_validate_insights_rejects_uncited_evidence",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-23",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_report_insights.py::test_validate_insights_requires_evidence_for_factual",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-24",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_report_insights.py::test_generate_insight_artifact_draft_when_valid",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-analysis_report-25",
+      "category": "analysis_report",
+      "category_label": "普通经营分析与报告",
+      "expected": "source_test_passes",
+      "source": "tests/test_report_insights.py::test_contribution_angle_runs_attribution_and_drafts",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-01",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_relation_resolver.py::test_continue_decision_reuses_whitelisted_evidence_only",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-02",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_relation_resolver.py::test_invalid_action_and_missing_continue_target_degrade_to_none",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-03",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_relation_resolver.py::test_new_and_clarify_decisions_are_mapped",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-04",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_relation_resolver.py::test_prior_evidence_ids_reads_persisted_trace_whitelist",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-05",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_relation_resolver.py::test_service_relation_maps_llm_decisions_without_breaking_api_contract",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-06",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_relation_resolver.py::test_service_relation_falls_back_to_keywords_when_llm_unavailable",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-07",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory.py::test_scope_fingerprint_is_stable_and_scope_sensitive",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-08",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory.py::test_load_session_memory_only_keeps_overlapping_same_seller",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-09",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory.py::test_session_snapshot_rolls_to_max_turns",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-10",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory.py::test_session_snapshot_size_guard",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-11",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory.py::test_load_session_memory_different_seller",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-12",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory.py::test_scope_change_clears_historical_fields",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-13",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory_semantic.py::test_hybrid_rank_prefers_semantic_top",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-14",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory_semantic.py::test_hybrid_rank_falls_back_without_semantic",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-15",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory_semantic.py::test_repository_semantic_recall_and_supersede_lifecycle",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-16",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_memory_semantic.py::test_review_pending_memory_activates_and_supersedes_atomically",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-17",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_context_packer.py::test_packer_keeps_required_input_and_records_optional_omission",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-routing_memory-18",
+      "category": "routing_memory",
+      "category_label": "Agent 路由、记忆和多轮对话",
+      "expected": "source_test_passes",
+      "source": "tests/test_context_packer.py::test_packer_marks_required_overflow_without_silent_loss",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-01",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_iam_account.py::test_scrypt_password_hash_is_salted_and_verifiable",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-02",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_iam_account.py::test_multi_seller_analyst_permission_and_grants",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-03",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_iam_account.py::test_code_analysis_roles_have_separate_share_and_audit_permissions",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-04",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_iam_account.py::test_session_token_does_not_embed_authorization_role",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-05",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_tenancy.py::test_tenant_context_is_immutable_and_scoped",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-06",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_tenancy.py::test_seller_scope_requires_a_real_seller_id",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-07",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_tenancy.py::test_trace_read_rejects_another_seller",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-08",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_tenancy.py::test_qdrant_search_merges_only_current_tenant_private_knowledge",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-09",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_scope_locking.py::test_resolve_explorer_context_disabled_records_trace",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-10",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_scope_locking.py::test_resolve_explorer_context_enabled_missing_payload",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-11",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_scope_locking.py::test_data_query_refuses_global_mcp_when_scope_missing",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-12",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_scope_locking.py::test_data_query_calls_scoped_when_scope_present",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-13",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_delegation.py::test_delegation_token_preserves_tenant_scope_and_rejects_tampering",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-14",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_phase7_rls.py::test_rls_cannot_return_another_seller_tenant",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-15",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_phase7_rls.py::test_rls_without_context_returns_no_rows",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-16",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_rls_enforcement.py::TestRlsEnforcement::test_cross_tenant_rows_are_invisible",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-17",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_rls_enforcement.py::TestRlsEnforcement::test_unset_context_is_fail_closed",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-auth_security-18",
+      "category": "auth_security",
+      "category_label": "权限、安全和审计",
+      "expected": "source_test_passes",
+      "source": "tests/test_rls_enforcement.py::TestRlsEnforcement::test_platform_scope_sees_all_tenants",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-01",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis.py::test_candidate_policy_rejects_execution_and_network_primitives",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-02",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis.py::test_candidate_contract_and_requirements_are_strict",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-03",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis.py::test_upload_create_confirm_and_tenant_isolation",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-04",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis.py::test_confirm_rejects_tampered_plan_hash",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-05",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis.py::test_expired_confirmation_persists_expired_status",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-06",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_policy_allows_only_the_supplied_input_path",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-07",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_policy_rejects_reexported_process_and_reader_bypasses",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-08",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_policy_rejects_import_time_side_effects_and_output",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-09",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_runner_captures_and_bounds_import_time_output",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-10",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_runner_bounds_candidate_exception_rendering",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-11",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_runner_rejects_svg_and_fake_png",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-12",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_runner_enforces_result_contract_and_json_limit",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-13",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_fake_provider_emits_the_complete_candidate_result_contract",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-14",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_provider_context_is_server_scoped_and_not_a_user_token",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-15",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_worker_bounds_and_verifies_source_before_execution",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-16",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_worker_verifies_plan_file_and_contract_fingerprints",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-17",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_api_contract.py::test_code_analysis_read_routes_require_read_permission",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-18",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_api_contract.py::test_create_job_enforces_atomic_active_and_daily_quotas",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-19",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_api_contract.py::test_confirmation_rejects_database_plan_hash_drift",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-20",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_api_contract.py::test_revise_creates_new_immutable_version_and_supersedes_parent",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-21",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_api_contract.py::test_artifact_download_uses_chart_metadata",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-22",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_boundaries.py::test_model_proxy_rejects_tool_messages_and_oversized_prompts",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-23",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_boundaries.py::test_local_artifact_store_is_atomic_and_enforces_read_bound",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-24",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_dataset.py::test_prefetch_builds_governed_parquet_artifact",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-coding_agent-25",
+      "category": "coding_agent",
+      "category_label": "Coding Agent",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_storage.py::test_local_store_rejects_traversal_and_bounds_reads",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-01",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_runtime.py::test_persist_trace_runs_after_graph_step_budget",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-02",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_runtime.py::test_persist_trace_runs_after_graph_latency_budget",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-03",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_runtime.py::test_non_persistence_nodes_still_obey_graph_step_budget",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-04",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_llm_fallback.py::test_llm_chat_falls_back_on_recoverable_error",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-05",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_llm_fallback.py::test_llm_chat_non_recoverable_error_does_not_fallback",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-06",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_llm_fallback.py::test_llm_extract_falls_back_on_recoverable_error",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-07",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_llm_fallback.py::test_fallback_source_index",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-08",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_llm_usage.py::test_provider_reported_usage_is_bound_to_current_user_and_trace",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-09",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_alert_triage.py::test_cooldown_blocks_repeated_auto_diagnosis",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-10",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_alert_triage.py::test_review_rejects_unknown_action",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-11",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_open_diagnosis.py::test_llm_unavailable_degrades_to_deterministic_fallback_without_claims",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-12",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_open_diagnosis.py::test_diagnosed_findings_emit_pending_review_event_only",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-13",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_open_diagnosis.py::test_cooldown_skips_recently_diagnosed_metric",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-14",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_health.py::test_health",
+      "verification": "pytest_unit_or_contract"
+    },
+    {
+      "id": "nr-reliability-15",
+      "category": "reliability",
+      "category_label": "可靠性和并发",
+      "expected": "source_test_passes",
+      "source": "tests/test_code_analysis_security.py::test_claim_caps_crash_retries_and_returns_lease_attempt",
+      "verification": "pytest_unit_or_contract"
+    }
+  ]
+}

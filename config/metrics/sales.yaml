@@ -1,0 +1,147 @@
+planning_defaults:
+  examples: ["查询{display_name}", "查看{display_name}趋势"]
+  limitations: "结果仅适用于已交付订单及当前指标口径。"
+dimensions:
+  - dimension_id: seller
+    source: order_items.seller_id
+    type: categorical
+metrics:
+  - metric_id: gmv
+    display_name: 成交总额
+    aliases: [GMV, gross merchandise volume, 成交总额, 交易额, 成交额, 成交金额, 销售额]
+    unit: BRL
+    display_format: currency
+    base_grain: order
+    aggregation: sum
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/gmv.md
+    display_order: 1
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: sales.gmv
+        capabilities: [value, trend, compare, breakdown, period]
+        dimensions: [customer_state, customer_city, seller_state, product_category, payment_type, seller]
+        lineage_source: analytics.daily_metrics / analytics.v_delivered_orders
+        lineage_description: 已交付订单商品行 price 与 freight_value 之和，按 purchase_date 归属
+      seller:
+        handler_key: sales.gmv_seller
+        capabilities: [value, trend, compare]
+        dimensions: [customer_state]
+        lineage_source: analytics.fact_order_items + analytics.fact_orders
+        lineage_description: （历史别名 sales_gmv）底层事实血缘；受控查询直接读取 analytics.v_delivered_order_items 与 analytics.v_delivered_orders，按卖家及 purchase_date 过滤后汇总 price 与 freight_value
+
+  - metric_id: order_count
+    display_name: 订单量
+    aliases: [order_count, 订单数, 订单量]
+    planning:
+      semantic_terms: [订单]
+    unit: orders
+    display_format: number
+    base_grain: order
+    aggregation: sum
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/order_count.md
+    display_order: 2
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: sales.order_count
+        capabilities: [value, trend, compare, breakdown, period]
+        dimensions: [customer_state, customer_city, seller_state, product_category, seller]
+        dimension_semantics:
+          seller:
+            additive: false
+            semantics: distinct_orders_per_seller
+        lineage_source: analytics.v_delivered_order_items
+        lineage_description: 仅已交付订单的去重订单计数
+      seller:
+        handler_key: sales.order_count
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.fact_order_items + analytics.fact_orders
+        lineage_description: 底层事实血缘；受控查询直接读取 analytics.v_delivered_order_items 与 analytics.v_delivered_orders，按卖家及 purchase_date 过滤后按 order_id 去重计数
+
+  - metric_id: avg_order_value
+    display_name: 客单价
+    aliases: [AOV, avg_order_value, average order value, 客单价, 平均客单价, 平均订单金额]
+    unit: BRL/order
+    display_format: currency
+    base_grain: order
+    aggregation: weighted_ratio
+    period_aggregation:
+      kind: weighted_ratio
+      numerator_metric: gmv
+      denominator_metric: order_count
+      multiplier: 1.0
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/avg_order_value.md
+    display_order: 3
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: sales.avg_order_value
+        capabilities: [value, trend, compare, breakdown, period]
+        dimensions: [customer_state, customer_city, seller_state, product_category]
+        lineage_source: analytics.fact_orders / analytics.v_delivered_order_items
+        lineage_description: 已交付订单商品金额与运费总和 / 已交付订单数
+      seller:
+        handler_key: sales.avg_order_value
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.fact_order_items + analytics.fact_orders
+        lineage_description: 底层事实血缘；受控查询直接读取 analytics.v_delivered_order_items 与 analytics.v_delivered_orders，按卖家及 purchase_date 过滤后计算已交付商品金额加运费总额 / 去重订单数
+
+  - metric_id: freight_value
+    display_name: 运费总额
+    aliases: [运费, 运费总额]
+    unit: BRL
+    display_format: currency
+    base_grain: order
+    aggregation: sum
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/freight_value.md
+    display_order: 5
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: sales.freight_value
+        capabilities: [value, trend, compare, breakdown, period]
+        dimensions: [customer_state, customer_city, seller_state, product_category]
+        lineage_source: analytics.v_delivered_orders
+        lineage_description: 仅已交付订单的运费汇总
+      seller:
+        handler_key: sales.freight_value
+        capabilities: [value, trend, compare]
+        dimensions: []
+        lineage_source: analytics.fact_order_items + analytics.fact_orders
+        lineage_description: 底层事实血缘；受控查询直接读取 analytics.v_delivered_order_items 与 analytics.v_delivered_orders，按卖家及 purchase_date 过滤后汇总商品行 freight_value
+
+  - metric_id: freight_rate
+    display_name: 运费率
+    aliases: [运费占比, 运费率]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    period_aggregation:
+      kind: weighted_ratio
+      numerator_metric: freight_value
+      denominator_metric: gmv
+      multiplier: 100.0
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/freight_rate.md
+    display_order: 15
+    surfaces: [report, target, chat]
+    implementations:
+      platform:
+        handler_key: sales.freight_rate
+        capabilities: [value, trend, compare, period, breakdown]
+        dimensions: [month_position]
+        lineage_source: analytics.v_delivered_orders
+        lineage_description: 运费 / GMV × 100

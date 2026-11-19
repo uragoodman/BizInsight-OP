@@ -1,0 +1,36 @@
+# Runtime dependencies for the API image. Optional capabilities are split into
+# dedicated files so local-hybrid deployments do not download embedding runtimes.
+fastapi==0.139.0
+uvicorn[standard]==0.49.0
+python-multipart==0.0.32
+pydantic==2.13.4
+pydantic-settings==2.14.2
+email-validator==2.3.0
+cryptography==48.0.1
+
+langgraph==1.2.7
+langgraph-checkpoint-sqlite==3.1.0
+langgraph-checkpoint-postgres==3.1.0
+langchain-core==1.4.8
+openai==2.44.0
+tiktoken==0.12.0
+python-dotenv==1.2.2
+
+mcp==1.28.1
+sqlalchemy==2.0.51
+psycopg[binary]==3.3.4
+
+opentelemetry-api==1.43.0
+opentelemetry-sdk==1.43.0
+opentelemetry-exporter-otlp-proto-http==1.43.0
+prometheus-client==0.25.0
+alembic==1.18.4
+httpx==0.28.1
+pyyaml==6.0.2
+boto3==1.40.35
+openpyxl==3.1.5
+pyarrow==21.0.0
+# Phase 11 upload-contract inspection. Generated code still executes only in
+# the separately pinned analysis-runner image.
+openpyxl==3.1.5
+pyarrow==21.0.0

@@ -1,0 +1,448 @@
+services:
+  api:
+    image: bizinsight-agent:phase6
+    build:
+      context: ..
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_URL: postgresql+psycopg://postgres:${BIZINSIGHT_POSTGRES_PASSWORD:?Set BIZINSIGHT_POSTGRES_PASSWORD}@postgres:5432/bizinsight
+      # The connection authenticates with the bootstrap login, then the
+      # application engine SET ROLEs to bizinsight_app on every pooled
+      # connection so PostgreSQL RLS is actually enforced.
+      DB_USE_RLS_ROLE: ${BIZINSIGHT_DB_USE_RLS_ROLE:-true}
+      TRACE_BACKEND: postgres
+      TOOL_PERMISSION_POLICY_PATH: /app/config/governance/tool_permissions.json
+      ABAC_DATABASE_ENABLED: "false"
+      QDRANT_URL: http://qdrant:6333
+      MEM0_QDRANT_URL: http://qdrant:6333
+      MEM0_ENABLED: ${MEM0_ENABLED:-false}
+      RAG_BACKEND: ${RAG_BACKEND:-qdrant_vector}
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318/v1/traces
+      PHASE6_STORE_PATH: /app/data/phase6/store.sqlite
+      REPORT_CHART_DIR: /app/data/phase6/charts
+      CODE_ANALYSIS_STORAGE_BACKEND: s3
+      CODE_ANALYSIS_S3_ENDPOINT: http://minio:9000
+      CODE_ANALYSIS_S3_BUCKET: bizinsight-code-analysis
+      CODE_ANALYSIS_S3_ACCESS_KEY: ${CODE_ANALYSIS_S3_ACCESS_KEY:?Set CODE_ANALYSIS_S3_ACCESS_KEY}
+      CODE_ANALYSIS_S3_SECRET_KEY: ${CODE_ANALYSIS_S3_SECRET_KEY:-minioadmin}
+      CODE_ANALYSIS_DATABASE_URL: ${CODE_ANALYSIS_API_DATABASE_URL:?Set CODE_ANALYSIS_API_DATABASE_URL}
+      HF_HOME: /opt/huggingface
+      RAG_CACHE_DIR: /opt/huggingface/hub
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      HF_HUB_DISABLE_XET: "1"
+      RAG_EMBEDDING_MODEL: ${RAG_EMBEDDING_MODEL:-BAAI/bge-small-zh-v1.5}
+    ports:
+      - "127.0.0.1:28080:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      otel-collector:
+        condition: service_started
+      checkpoint-init:
+        condition: service_completed_successfully
+      minio:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/live')"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - checkpoint-data:/app/data/checkpoints
+      - phase6-data:/app/data/phase6
+      - rag-index-data:/app/data/rag
+      - ../data/cache/llama_index:/app/data/cache/llama_index:ro
+      # Quality evidence is generated on the host by evaluation/benchmark
+      # commands. Keep evaluations read-only and snapshots writable.
+      - ../data/evaluations:/app/data/evaluations:ro
+      - ../data/quality:/app/data/quality
+      # Reuse the host's verified embedding cache for semantic metric recall;
+      # the mount is read-only and can be overridden for another machine.
+      - huggingface-cache:/opt/huggingface:ro
+  postgres:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: bizinsight
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${BIZINSIGHT_POSTGRES_PASSWORD:?Set BIZINSIGHT_POSTGRES_PASSWORD}
+      CODE_ANALYSIS_API_DB_PASSWORD: ${CODE_ANALYSIS_API_DB_PASSWORD:?Set CODE_ANALYSIS_API_DB_PASSWORD}
+      CODE_ANALYSIS_WORKER_DB_PASSWORD: ${CODE_ANALYSIS_WORKER_DB_PASSWORD:?Set CODE_ANALYSIS_WORKER_DB_PASSWORD}
+    ports:
+      - "127.0.0.1:${POSTGRES_HOST_PORT:-15432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+      - ./postgres/init-code-analysis-roles.sh:/docker-entrypoint-initdb.d/10-code-analysis-roles.sh:ro
+    networks: [default, code-data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bizinsight"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  qdrant:
+    image: qdrant/qdrant:v1.15.1
+    ports:
+      - "127.0.0.1:${QDRANT_HOST_PORT:-6333}:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+  permission-event-worker:
+    profiles: ["operations"]
+    image: bizinsight-agent:phase6
+    command: ["python", "-m", "app.iam.permission_event_worker"]
+    env_file:
+      - ../.env
+    environment:
+      # This is a dedicated cross-tenant outbox worker.  It uses the existing
+      # least-privilege queue role, not the API RLS role, and can only read/
+      # update permission_event_outbox.
+      DB_USE_RLS_ROLE: "false"
+      POSTGRES_URL: ${PERMISSION_EVENT_DATABASE_URL:?Set PERMISSION_EVENT_DATABASE_URL}
+      PERMISSION_EVENT_DATABASE_URL: ${PERMISSION_EVENT_DATABASE_URL:?Set PERMISSION_EVENT_DATABASE_URL}
+    depends_on:
+      postgres:
+        condition: service_healthy
+  lifecycle-reconciler:
+    profiles: ["operations"]
+    image: bizinsight-agent:phase6
+    command:
+      ["python", "-m", "scripts.reconcile_chat_lifecycle", "--interval-seconds", "${LIFECYCLE_RECONCILE_INTERVAL_SECONDS:-60}", "--forever"]
+    env_file:
+      - ../.env
+    environment:
+      DB_USE_RLS_ROLE: "true"
+      DB_RLS_ROLE: bizinsight_lifecycle_app
+      POSTGRES_URL: ${LIFECYCLE_RECONCILE_DATABASE_URL:?Set LIFECYCLE_RECONCILE_DATABASE_URL}
+      CHAT_EXECUTION_STALE_SECONDS: ${CHAT_EXECUTION_STALE_SECONDS:-600}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+  memory-preference-worker:
+    profiles: ["operations"]
+    image: bizinsight-agent:phase6
+    command: ["python", "-m", "app.memory.preference_worker"]
+    expose:
+      - "9101"
+    environment:
+      # Provision/rotate bizinsight_memory_worker separately with
+      # scripts/ensure_memory_preference_worker_role.py. Never pass the admin URL here.
+      DB_USE_RLS_ROLE: "false"
+      MEMORY_PREFERENCE_DATABASE_URL: ${MEMORY_PREFERENCE_DATABASE_URL:?Set MEMORY_PREFERENCE_DATABASE_URL}
+      MEMORY_PREFERENCE_WORKER_LEASE_SECONDS: ${MEMORY_PREFERENCE_WORKER_LEASE_SECONDS:-60}
+      MEMORY_PREFERENCE_METRICS_PORT: ${MEMORY_PREFERENCE_METRICS_PORT:-9101}
+      MEMORY_PREFERENCE_PAYLOAD_KEY: ${MEMORY_PREFERENCE_PAYLOAD_KEY:-}
+      MEMORY_PREFERENCE_PAYLOAD_KEYRING: ${MEMORY_PREFERENCE_PAYLOAD_KEYRING:-}
+      MEMORY_PREFERENCE_PAYLOAD_CURRENT_KEY_VERSION: ${MEMORY_PREFERENCE_PAYLOAD_CURRENT_KEY_VERSION:-v1}
+      MEM0_ENABLED: ${MEM0_ENABLED:-false}
+      MEM0_QDRANT_URL: http://qdrant:6333
+      QDRANT_URL: http://qdrant:6333
+      MEM0_QDRANT_COLLECTION: ${MEM0_QDRANT_COLLECTION:-bizinsight_user_preferences_v1}
+      MEM0_QDRANT_API_KEY: ${MEM0_QDRANT_API_KEY:?Set MEM0_QDRANT_API_KEY}
+      MEM0_EMBEDDING_MODEL: ${MEM0_EMBEDDING_MODEL:-BAAI/bge-small-zh-v1.5}
+      MEM0_EMBEDDING_DIMS: ${MEM0_EMBEDDING_DIMS:-512}
+      MEM0_HMAC_SECRET: ${MEM0_HMAC_SECRET:?Set MEM0_HMAC_SECRET}
+      MEM0_SCOPE_VERSION: ${MEM0_SCOPE_VERSION:-v1}
+      MEM0_SEARCH_TIMEOUT_SECONDS: ${MEM0_SEARCH_TIMEOUT_SECONDS:-1.5}
+      MEM0_WRITE_TIMEOUT_SECONDS: ${MEM0_WRITE_TIMEOUT_SECONDS:-5}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+  memory-preference-cleaner:
+    profiles: ["operations"]
+    image: bizinsight-agent:phase6
+    command: ["python", "-m", "app.memory.preference_worker", "--cleanup-only", "--interval-seconds", "${MEMORY_PREFERENCE_CLEANUP_INTERVAL_SECONDS:-60}"]
+    expose:
+      - "9101"
+    environment:
+      # Independent of Mem0/Qdrant delivery: this process only erases expired
+      # Overlay plaintext and applies due scope_default expiry transitions.
+      DB_USE_RLS_ROLE: "false"
+      MEMORY_PREFERENCE_DATABASE_URL: ${MEMORY_PREFERENCE_DATABASE_URL:?Set MEMORY_PREFERENCE_DATABASE_URL}
+      MEMORY_PREFERENCE_CLEANUP_INTERVAL_SECONDS: ${MEMORY_PREFERENCE_CLEANUP_INTERVAL_SECONDS:-60}
+      MEMORY_PREFERENCE_METRICS_PORT: ${MEMORY_PREFERENCE_METRICS_PORT:-9101}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+  rag-document-sync-worker:
+    profiles: ["operations"]
+    image: bizinsight-agent:phase6
+    command:
+      ["python", "scripts/sync_knowledge.py", "worker", "--collection", "${RAG_QDRANT_ACTIVE_ALIAS:-${QDRANT_COLLECTION:-bizinsight_knowledge}}", "--reconcile-seconds", "60"]
+    env_file:
+      - ../.env
+    environment:
+      POSTGRES_URL: postgresql+psycopg://postgres:${BIZINSIGHT_POSTGRES_PASSWORD:?Set BIZINSIGHT_POSTGRES_PASSWORD}@postgres:5432/bizinsight
+      DB_USE_RLS_ROLE: "true"
+      DB_RLS_ROLE: bizinsight_app
+      QDRANT_URL: http://qdrant:6333
+      MEM0_QDRANT_URL: http://qdrant:6333
+      MEM0_ENABLED: ${MEM0_ENABLED:-false}
+      RAG_BACKEND: ${RAG_BACKEND:-qdrant_vector}
+      HF_HOME: /opt/huggingface
+      RAG_CACHE_DIR: /opt/huggingface/hub
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      HF_HUB_DISABLE_XET: "1"
+      RAG_EMBEDDING_MODEL: ${RAG_EMBEDDING_MODEL:-BAAI/bge-small-zh-v1.5}
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+      checkpoint-init:
+        condition: service_completed_successfully
+    volumes:
+      - rag-index-data:/app/data/rag
+      - huggingface-cache:/opt/huggingface:ro
+  prometheus:
+    image: prom/prometheus:v3.4.1
+    profiles: ["observability"]
+    command: ["--config.file=/etc/prometheus/prometheus.yml"]
+    ports:
+      - "127.0.0.1:${PROMETHEUS_HOST_PORT:-9090}:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./alerts.yml:/etc/prometheus/alerts.yml:ro
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.122.1
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    volumes:
+      - ./otel-collector.yml:/etc/otelcol-contrib/config.yaml:ro
+    ports:
+      - "127.0.0.1:${OTEL_COLLECTOR_HOST_PORT:-14318}:4318"
+    depends_on:
+      phoenix:
+        condition: service_started
+  checkpoint-init:
+    image: alpine:3.20
+    command: ["sh", "-c", "mkdir -p /data /phase6 /rag && if [ ! -e /rag/index_manifest.json ] && [ -e /seed-rag/index_manifest.json ]; then cp -a /seed-rag/. /rag/; fi && chown -R 10001:10001 /data /phase6 /rag"]
+    volumes:
+      - checkpoint-data:/data
+      - phase6-data:/phase6
+      - rag-index-data:/rag
+      - ../data/rag:/seed-rag:ro
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${CODE_ANALYSIS_S3_ACCESS_KEY:?Set CODE_ANALYSIS_S3_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${CODE_ANALYSIS_S3_SECRET_KEY:-minioadmin}
+    ports:
+      # The containers use minio:9000 internally. These host ports are only
+      # for optional local access to the S3 API and MinIO console. Keep them
+      # configurable because Windows may reserve 9000/9001.
+      - "127.0.0.1:${MINIO_API_HOST_PORT:-19000}:9000"
+      - "127.0.0.1:${MINIO_CONSOLE_HOST_PORT:-19001}:9001"
+    volumes:
+      - code-analysis-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    networks: [default, code-data]
+  code-worker:
+    profiles: ["code-agent"]
+    build:
+      context: ..
+      dockerfile: deploy/code-worker.Dockerfile
+    environment:
+      POSTGRES_URL: ${CODE_ANALYSIS_WORKER_DATABASE_URL:?Set CODE_ANALYSIS_WORKER_DATABASE_URL}
+      CODE_ANALYSIS_DATABASE_URL: ${CODE_ANALYSIS_WORKER_DATABASE_URL:?Set CODE_ANALYSIS_WORKER_DATABASE_URL}
+      TRACE_BACKEND: postgres
+      CODE_ANALYSIS_STORAGE_BACKEND: s3
+      CODE_ANALYSIS_S3_ENDPOINT: http://minio:9000
+      CODE_ANALYSIS_S3_BUCKET: bizinsight-code-analysis
+      CODE_ANALYSIS_S3_ACCESS_KEY: ${CODE_ANALYSIS_S3_ACCESS_KEY:?Set CODE_ANALYSIS_S3_ACCESS_KEY}
+      CODE_ANALYSIS_S3_SECRET_KEY: ${CODE_ANALYSIS_S3_SECRET_KEY:-minioadmin}
+      CODE_ANALYSIS_PROVIDER: ${CODE_ANALYSIS_PROVIDER:-opencode}
+      # The single model setting is shared with local Debug through .env.
+      # Provider credentials remain exclusive to code-model-proxy.
+      LLM_MODEL: ${LLM_MODEL:-qwen3.8-flash}
+      CODE_ANALYSIS_OPENCODE_URL: http://opencode-generator:4096
+      CODE_ANALYSIS_OPENCODE_USERNAME: opencode
+      CODE_ANALYSIS_OPENCODE_PASSWORD: ${CODE_ANALYSIS_OPENCODE_PASSWORD:?Set CODE_ANALYSIS_OPENCODE_PASSWORD}
+      CODE_ANALYSIS_OPENCODE_TIMEOUT_SECONDS: ${CODE_ANALYSIS_OPENCODE_TIMEOUT_SECONDS:-600}
+      CODE_ANALYSIS_OPENCODE_PROTOCOL_RETRIES: ${CODE_ANALYSIS_OPENCODE_PROTOCOL_RETRIES:-1}
+      CODE_ANALYSIS_MAX_UPLOAD_BYTES: ${CODE_ANALYSIS_MAX_UPLOAD_BYTES:-52428800}
+      CODE_ANALYSIS_MAX_UNCOMPRESSED_BYTES: ${CODE_ANALYSIS_MAX_UNCOMPRESSED_BYTES:-400000000}
+      CODE_ANALYSIS_MAX_ROWS: ${CODE_ANALYSIS_MAX_ROWS:-1100000}
+      CODE_ANALYSIS_RETENTION_HOURS: ${CODE_ANALYSIS_RETENTION_HOURS:-24}
+      CODE_ANALYSIS_JOB_LEASE_SECONDS: ${CODE_ANALYSIS_JOB_LEASE_SECONDS:-90}
+      CODE_ANALYSIS_JOB_DEADLINE_SECONDS: ${CODE_ANALYSIS_JOB_DEADLINE_SECONDS:-1800}
+      CODE_ANALYSIS_MAX_JOB_ATTEMPTS: ${CODE_ANALYSIS_MAX_JOB_ATTEMPTS:-3}
+      CODE_ANALYSIS_EXECUTION_TIMEOUT_SECONDS: ${CODE_ANALYSIS_EXECUTION_TIMEOUT_SECONDS:-120}
+      CODE_ANALYSIS_MAX_REPAIR_ATTEMPTS: ${CODE_ANALYSIS_MAX_REPAIR_ATTEMPTS:-2}
+      CODE_ANALYSIS_MAX_SECURITY_REPAIR_ATTEMPTS: ${CODE_ANALYSIS_MAX_SECURITY_REPAIR_ATTEMPTS:-1}
+      CODE_ANALYSIS_SECURITY_REVIEW_ENABLED: ${CODE_ANALYSIS_SECURITY_REVIEW_ENABLED:-true}
+      CODE_ANALYSIS_MAX_OUTPUT_BYTES: ${CODE_ANALYSIS_MAX_OUTPUT_BYTES:-20971520}
+      CODE_ANALYSIS_RUNNER_MEMORY_MB: ${CODE_ANALYSIS_RUNNER_MEMORY_MB:-1024}
+      CODE_ANALYSIS_RUNNER_CPU_CORES: ${CODE_ANALYSIS_RUNNER_CPU_CORES:-0.5}
+      CODE_ANALYSIS_RUNNER_PIDS: ${CODE_ANALYSIS_RUNNER_PIDS:-64}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+      opencode-generator:
+        condition: service_healthy
+    # Only the trusted orchestrator receives this socket. The generator and
+    # disposable runner never receive it.
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=128m
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    networks: [code-data, worker-generator]
+  opencode-generator:
+    profiles: ["code-agent"]
+    build:
+      context: ..
+      dockerfile: deploy/opencode-generator/Dockerfile
+    volumes:
+      - ./opencode-generator/opencode.json:/work/opencode.json:ro
+    environment:
+      OPENCODE_CONFIG: /work/opencode.json
+      OPENCODE_SERVER_PASSWORD: ${CODE_ANALYSIS_OPENCODE_PASSWORD:?Set CODE_ANALYSIS_OPENCODE_PASSWORD}
+      BIZINSIGHT_MODEL_PROXY_URL: http://code-model-proxy:8091/v1
+      BIZINSIGHT_MODEL_PROXY_TOKEN: ${CODE_ANALYSIS_MODEL_PROXY_TOKEN:?Set CODE_ANALYSIS_MODEL_PROXY_TOKEN}
+    depends_on:
+      code-model-proxy:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "const h='Basic '+Buffer.from('opencode:'+process.env.OPENCODE_SERVER_PASSWORD).toString('base64');fetch('http://localhost:4096/global/health',{headers:{Authorization:h}}).then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    read_only: true
+    tmpfs:
+      - /home/agent/.config:rw,noexec,nosuid,size=32m,uid=10001,gid=10001
+      - /home/agent/.local/share/opencode:rw,noexec,nosuid,size=128m,uid=10001,gid=10001
+      - /home/agent/.local/state:rw,noexec,nosuid,size=32m,uid=10001,gid=10001
+      - /home/agent/.cache:rw,noexec,nosuid,size=64m,uid=10001,gid=10001
+      - /tmp:rw,noexec,nosuid,size=64m,uid=10001,gid=10001
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    networks: [worker-generator, generator-proxy]
+  code-model-proxy:
+    profiles: ["code-agent"]
+    build:
+      context: ..
+      dockerfile: deploy/code-model-proxy.Dockerfile
+    env_file:
+      - ../.env
+    environment:
+      CODE_ANALYSIS_MODEL_PROXY_TOKEN: ${CODE_ANALYSIS_MODEL_PROXY_TOKEN:?Set CODE_ANALYSIS_MODEL_PROXY_TOKEN}
+      LLM_PROVIDER: ${LLM_PROVIDER:-opencode_go_openai_compatible}
+      LLM_MODEL: ${LLM_MODEL:-qwen3.8-flash}
+      CODE_ANALYSIS_UPSTREAM_API_KEY: ${CODE_ANALYSIS_UPSTREAM_API_KEY:?Set CODE_ANALYSIS_UPSTREAM_API_KEY}
+      CODE_ANALYSIS_UPSTREAM_BASE_URL: ${CODE_ANALYSIS_UPSTREAM_BASE_URL:-}
+      LLM_TIMEOUT_SECONDS: ${LLM_TIMEOUT_SECONDS:-90}
+      CODE_ANALYSIS_MODEL_PROXY_MAX_REQUESTS_PER_MINUTE: ${CODE_ANALYSIS_MODEL_PROXY_MAX_REQUESTS_PER_MINUTE:-20}
+      CODE_ANALYSIS_MODEL_PROXY_MAX_CONCURRENT_REQUESTS: ${CODE_ANALYSIS_MODEL_PROXY_MAX_CONCURRENT_REQUESTS:-2}
+      CODE_ANALYSIS_MODEL_PROXY_UPSTREAM_MAX_RETRIES: ${CODE_ANALYSIS_MODEL_PROXY_UPSTREAM_MAX_RETRIES:-3}
+      CODE_ANALYSIS_MODEL_PROXY_UPSTREAM_BACKOFF_SECONDS: ${CODE_ANALYSIS_MODEL_PROXY_UPSTREAM_BACKOFF_SECONDS:-2}
+      CODE_ANALYSIS_MODEL_PROXY_UPSTREAM_TIMEOUT_SECONDS: ${CODE_ANALYSIS_MODEL_PROXY_UPSTREAM_TIMEOUT_SECONDS:-600}
+      CODE_ANALYSIS_MODEL_PROXY_MAX_OUTPUT_TOKENS: ${CODE_ANALYSIS_MODEL_PROXY_MAX_OUTPUT_TOKENS:-16000}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8091/health')"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    # Not published to the host. Only the generator network may reach it.
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,uid=10001,gid=10001
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    networks: [generator-proxy, model-egress]
+  rag-shadow-worker:
+    profiles: ["rag-progressive"]
+    image: bizinsight-agent:phase6
+    command: ["python", "-m", "app.rag.shadow_worker"]
+    env_file: [../.env]
+    environment:
+      POSTGRES_URL: postgresql+psycopg://postgres:${BIZINSIGHT_POSTGRES_PASSWORD:?Set BIZINSIGHT_POSTGRES_PASSWORD}@postgres:5432/bizinsight
+    depends_on:
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+  rag-contract-worker:
+    profiles: ["rag-progressive"]
+    image: bizinsight-agent:phase6
+    command: ["python", "-m", "app.rag.contract_worker"]
+    env_file: [../.env]
+    environment:
+      POSTGRES_URL: postgresql+psycopg://postgres:${BIZINSIGHT_POSTGRES_PASSWORD:?Set BIZINSIGHT_POSTGRES_PASSWORD}@postgres:5432/bizinsight
+    depends_on:
+      postgres:
+        condition: service_healthy
+  rag-eval-worker:
+    profiles: ["rag-progressive"]
+    image: bizinsight-agent:phase6
+    command: ["python", "-m", "app.rag.ragas_evaluator", "--watch"]
+    env_file: [../.env]
+    environment:
+      POSTGRES_URL: postgresql+psycopg://postgres:${BIZINSIGHT_POSTGRES_PASSWORD:?Set BIZINSIGHT_POSTGRES_PASSWORD}@postgres:5432/bizinsight
+    depends_on:
+      postgres:
+        condition: service_healthy
+  unleash-db:
+    profiles: ["rag-progressive"]
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: unleash
+      POSTGRES_USER: unleash
+      POSTGRES_PASSWORD: ${UNLEASH_POSTGRES_PASSWORD:?Set UNLEASH_POSTGRES_PASSWORD}
+    volumes: [unleash-data:/var/lib/postgresql/data]
+  unleash:
+    profiles: ["rag-progressive"]
+    image: unleashorg/unleash-server:latest
+    environment:
+      DATABASE_URL: postgres://unleash:${UNLEASH_POSTGRES_PASSWORD:?Set UNLEASH_POSTGRES_PASSWORD}@unleash-db:5432/unleash
+      DATABASE_SSL: "false"
+      INIT_FRONTEND_API_TOKENS: default:development.${UNLEASH_FRONTEND_TOKEN:?Set UNLEASH_FRONTEND_TOKEN}
+    depends_on: [unleash-db]
+    ports: ["127.0.0.1:4242:4242"]
+  phoenix:
+    image: arizephoenix/phoenix:latest
+    ports: ["127.0.0.1:6006:6006"]
+    volumes: [phoenix-data:/mnt/data]
+volumes:
+  postgres-data:
+    external: true
+    name: deploy_postgres18-data
+  checkpoint-data:
+  phase6-data:
+  code-analysis-data:
+  unleash-data:
+  phoenix-data:
+  qdrant-data:
+  rag-index-data:
+  huggingface-cache:
+networks:
+  code-data:
+    internal: true
+  worker-generator:
+    internal: true
+  generator-proxy:
+    internal: true
+  model-egress:
+

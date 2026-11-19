@@ -1,0 +1,14 @@
+receivers:
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+exporters:
+  debug: {}
+  otlphttp/phoenix:
+    endpoint: http://phoenix:6006
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [debug, otlphttp/phoenix]

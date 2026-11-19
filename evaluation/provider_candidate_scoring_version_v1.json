@@ -1,0 +1,22 @@
+{
+  "scorer_version": "provider-candidate-run-v1",
+  "base_scorer_version": "root-cause-run-v2",
+  "protocol_id": "provider-critic-ablation-candidate-17",
+  "status": "candidate_protocol_only_not_global_default",
+  "changes": [
+    "Compose the existing per-run diagnosis score with candidate-specific CSV truth checks for baseline, current, delta, and registered components.",
+    "Require candidate metric, scope fingerprint, exact period, method, evidence type, unit, citation, and completed validated action binding.",
+    "Record expected numeric result, full task acceptance, partial status, and execution errors separately; partial output cannot pass complete-task acceptance.",
+    "For full arm, require all three optional Critic outputs, three successful critic-node extract logical calls with attempt IDs, passed verdicts, and final approval; for off arm, require explicit evaluation_ablation and zero critic-node optional Critic calls.",
+    "Statistical contribution is checked as a descriptive numerical result; business-causality proof is not required.",
+    "Require the current deterministic causal-language review to be approved; this is a no-unsupported-causal-claim boundary, not a requirement to prove causality.",
+    "Retain root-cause-run-v2 output alongside new checks; no change to existing Golden or global scoring semantics.",
+    "Unknown Token usage remains null according to the base scorer; budget exhaustion never becomes an expected safe stop for these success tasks."
+  ],
+  "tolerance_source": "Per-candidate absolute tolerance copied from the reviewed candidate/truth artifacts; defaults are not substituted when a case has no tolerance.",
+  "denominator": "One per case × arm × replicate; planned candidate protocol is 17 × 2 × 3 = 102 runs.",
+  "required_arms": {
+    "full": ["groundedness", "completeness", "consistency"],
+    "off": ["evaluation_ablation for all three; zero critic-node optional LLM calls"]
+  }
+}

@@ -1,0 +1,242 @@
+﻿[
+    {
+        "metric_id":  "avg_approval_lead_hours",
+        "expected":  7.4,
+        "actual":  7.4,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "avg_delivery_lead_time",
+        "expected":  3.0,
+        "actual":  3.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "avg_delivery_transit_hours",
+        "expected":  16.6,
+        "actual":  16.6,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "avg_dispatch_lead_hours",
+        "expected":  8.4,
+        "actual":  8.4,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "avg_items_per_order",
+        "expected":  4.0,
+        "actual":  4.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "avg_order_value",
+        "expected":  260.0,
+        "actual":  260.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "bad_review_rate",
+        "expected":  25.0,
+        "actual":  25.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "cancel_rate",
+        "expected":  20.0,
+        "actual":  20.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "customer_count",
+        "expected":  3.0,
+        "actual":  3.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "delivery_delay_rate",
+        "expected":  33.33,
+        "actual":  33.33,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "freight_rate",
+        "expected":  12.31,
+        "actual":  12.31,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "freight_value",
+        "expected":  160.0,
+        "actual":  160.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "gmv",
+        "expected":  1300.0,
+        "actual":  1300.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "installment_order_share",
+        "expected":  13.85,
+        "actual":  13.85,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "on_time_delivery_rate",
+        "expected":  66.67,
+        "actual":  66.67,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "order_approval_rate",
+        "expected":  86.36,
+        "actual":  86.36,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "order_count",
+        "expected":  5.0,
+        "actual":  5.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "order_final_delivery_rate",
+        "expected":  36.36,
+        "actual":  36.36,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "order_shipment_rate",
+        "expected":  50.0,
+        "actual":  50.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "payment_value",
+        "expected":  1300.0,
+        "actual":  1300.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "repeat_customer_count",
+        "expected":  2.0,
+        "actual":  2.0,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "repeat_purchase_rate",
+        "expected":  66.67,
+        "actual":  66.67,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    },
+    {
+        "metric_id":  "review_comment_rate",
+        "expected":  50.0,
+        "actual":  40.0,
+        "status":  "ok",
+        "passed":  false,
+        "failed_checks":  [
+                              "value"
+                          ]
+    },
+    {
+        "metric_id":  "review_score_avg",
+        "expected":  3.25,
+        "actual":  3.25,
+        "status":  "ok",
+        "passed":  true,
+        "failed_checks":  [
+
+                          ]
+    }
+]

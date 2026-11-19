@@ -1,0 +1,2137 @@
+﻿{
+    "inventory_count":  46,
+    "metric_pass_count":  40,
+    "metric_fail_count":  6,
+    "pytest_summary":  "41 passed, 6 failed, 2 warnings",
+    "command":  "python -m pytest tests/test_seller_metric_value_acceptance.py -q -s",
+    "database":  "Isolated PostgreSQL temporary database; stopped after run",
+    "results":  [
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "avg_approval_lead_hours",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  3.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "hours",
+                                         "value":  3.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "avg_approval_lead_hours",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "hours",
+                        "sql":  [
+                                    "SELECT AVG(approval_lead_hours) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "avg_delivery_transit_hours",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  24.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "hours",
+                                         "value":  24.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "avg_delivery_transit_hours",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "hours",
+                        "sql":  [
+                                    "SELECT AVG(delivery_transit_hours) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "avg_dispatch_lead_hours",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  6.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "hours",
+                                         "value":  6.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "avg_dispatch_lead_hours",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "hours",
+                        "sql":  [
+                                    "SELECT AVG(dispatch_lead_hours) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "avg_order_value",
+                                       "source_table":  "raw.order_items + analytics.fact_orders",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  135.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  false,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "BRL/order",
+                                         "value":  135.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "analytics.tenant_daily_metrics"
+                                                              ],
+                        "metric_id":  "avg_order_value",
+                        "registered_lineage_source":  "analytics.tenant_daily_metrics",
+                        "registered_unit":  "BRL/order",
+                        "sql":  [
+                                    "SELECT CASE WHEN COUNT(DISTINCT oi.order_id) = 0 THEN 0 ELSE ROUND((SUM(oi.price + oi.freight_value) / COUNT(DISTINCT oi.order_id))::numeric, 2) END AS value \n    FROM analytics.v_delivered_order_items oi\n    JOIN analytics.v_delivered_orders fo ON oi.order_id = fo.order_id\n WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "bad_review_rate",
+                                       "source_table":  "(SELECT DISTINCT oi.seller_id, oi.order_id, fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)) seller_orders JOIN raw.order_reviews r USING(order_id)",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  50.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  50.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "bad_review_rate",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items + raw.order_reviews",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE r.review_score \u003c= 2) * 100.0 / NULLIF(COUNT(r.review_score), 0) AS value FROM (SELECT DISTINCT oi.seller_id, oi.order_id, fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)) seller_orders JOIN raw.order_reviews r USING(order_id) WHERE seller_orders.seller_id=%(seller_id)s AND seller_orders.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "customer_count",
+                                       "source_table":  "raw.order_items + analytics.fact_orders",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  3.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  false,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "customers",
+                                         "value":  3.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "analytics.tenant_fact_orders"
+                                                              ],
+                        "metric_id":  "customer_count",
+                        "registered_lineage_source":  "analytics.tenant_fact_orders",
+                        "registered_unit":  "customers",
+                        "sql":  [
+                                    "SELECT COUNT(DISTINCT fo.customer_unique_id) AS value \n    FROM analytics.v_delivered_order_items oi\n    JOIN analytics.v_delivered_orders fo ON oi.order_id = fo.order_id\n WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "freight_value",
+                                       "source_table":  "raw.order_items + analytics.fact_orders",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  40.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  false,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "BRL",
+                                         "value":  40.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "freight_value",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "BRL",
+                        "sql":  [
+                                    "SELECT COALESCE(SUM(oi.freight_value), 0) AS value \n    FROM analytics.v_delivered_order_items oi\n    JOIN analytics.v_delivered_orders fo ON oi.order_id = fo.order_id\n WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "gmv",
+                                       "source_table":  "raw.order_items + analytics.fact_orders",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  540.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  false,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "BRL",
+                                         "value":  540.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "analytics.tenant_daily_metrics"
+                                                              ],
+                        "metric_id":  "gmv",
+                        "registered_lineage_source":  "analytics.tenant_daily_metrics",
+                        "registered_unit":  "BRL",
+                        "sql":  [
+                                    "SELECT COALESCE(SUM(oi.price + oi.freight_value), 0) AS value \n    FROM analytics.v_delivered_order_items oi\n    JOIN analytics.v_delivered_orders fo ON oi.order_id = fo.order_id\n WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "֧������Ʒ�����˷ѱ�����̯",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "installment_order_share",
+                                       "source_table":  "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  82.65306122448979
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  82.65
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "installment_order_share",
+                        "registered_lineage_source":  "analytics.fact_order_payments",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT SUM(CASE WHEN p.payment_installments \u003e 1 THEN p.allocated_payment_value ELSE 0 END) * 100.0 / NULLIF(SUM(p.allocated_payment_value), 0) AS value FROM analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id) WHERE p.seller_id=%(seller_id)s AND o.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "on_time_delivery_rate",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  66.66666666666667
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  66.67
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "on_time_delivery_rate",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE is_on_time) * 100.0 / NULLIF(COUNT(*) FILTER (WHERE is_on_time IS NOT NULL), 0) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "order_approval_rate",
+                                       "source_table":  "(\n            SELECT DISTINCT oi.seller_id, o.order_id,\n                   o.order_purchase_timestamp AS purchase_date,\n                   o.order_approved_at\n            FROM raw.order_items oi JOIN raw.orders o USING(order_id)\n        ) seller_funnel",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  75.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  75.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "order_approval_rate",
+                        "registered_lineage_source":  "raw.orders + raw.order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE order_approved_at IS NOT NULL) * 100.0 / NULLIF(COUNT(*), 0) AS value FROM (\n            SELECT DISTINCT oi.seller_id, o.order_id,\n                   o.order_purchase_timestamp AS purchase_date,\n                   o.order_approved_at\n            FROM raw.order_items oi JOIN raw.orders o USING(order_id)\n        ) seller_funnel WHERE seller_funnel.seller_id=%(seller_id)s AND seller_funnel.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "order_count",
+                                       "source_table":  "raw.order_items + analytics.fact_orders",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  4.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  false,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "orders",
+                                         "value":  4.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "analytics.tenant_fact_orders"
+                                                              ],
+                        "metric_id":  "order_count",
+                        "registered_lineage_source":  "analytics.tenant_fact_orders",
+                        "registered_unit":  "orders",
+                        "sql":  [
+                                    "SELECT COUNT(DISTINCT oi.order_id) AS value \n    FROM analytics.v_delivered_order_items oi\n    JOIN analytics.v_delivered_orders fo ON oi.order_id = fo.order_id\n WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "order_final_delivery_rate",
+                                       "source_table":  "(\n            SELECT DISTINCT oi.seller_id, o.order_id,\n                   o.order_purchase_timestamp AS purchase_date,\n                   o.order_status\n            FROM raw.order_items oi JOIN raw.orders o USING(order_id)\n        ) seller_funnel",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  100.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  100.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "order_final_delivery_rate",
+                        "registered_lineage_source":  "raw.orders + raw.order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE order_status = \u0027delivered\u0027) * 100.0 / NULLIF(COUNT(*), 0) AS value FROM (\n            SELECT DISTINCT oi.seller_id, o.order_id,\n                   o.order_purchase_timestamp AS purchase_date,\n                   o.order_status\n            FROM raw.order_items oi JOIN raw.orders o USING(order_id)\n        ) seller_funnel WHERE seller_funnel.seller_id=%(seller_id)s AND seller_funnel.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "order_shipment_rate",
+                                       "source_table":  "(\n            SELECT DISTINCT oi.seller_id, o.order_id,\n                   o.order_purchase_timestamp AS purchase_date,\n                   o.order_delivered_carrier_date\n            FROM raw.order_items oi JOIN raw.orders o USING(order_id)\n        ) seller_funnel",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  50.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  50.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "order_shipment_rate",
+                        "registered_lineage_source":  "raw.orders + raw.order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE order_delivered_carrier_date IS NOT NULL) * 100.0 / NULLIF(COUNT(*), 0) AS value FROM (\n            SELECT DISTINCT oi.seller_id, o.order_id,\n                   o.order_purchase_timestamp AS purchase_date,\n                   o.order_delivered_carrier_date\n            FROM raw.order_items oi JOIN raw.orders o USING(order_id)\n        ) seller_funnel WHERE seller_funnel.seller_id=%(seller_id)s AND seller_funnel.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "֧������Ʒ�����˷ѱ�����̯",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "payment_value",
+                                       "source_table":  "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  490.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "BRL",
+                                         "value":  490.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "payment_value",
+                        "registered_lineage_source":  "analytics.fact_order_payments",
+                        "registered_unit":  "BRL",
+                        "sql":  [
+                                    "SELECT SUM(p.allocated_payment_value) AS value FROM analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id) WHERE p.seller_id=%(seller_id)s AND o.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "metric_name":  "repeat_purchase_rate",
+                                       "source_table":  null,
+                                       "status":  "exception",
+                                       "value":  null
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  false,
+                                       "registered_unit":  true,
+                                       "seller_filter":  false,
+                                       "source":  false,
+                                       "status":  false,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  false
+                                   },
+                        "exception":  "KeyError: \u0027repeat_purchase_rate\u0027",
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  33.33
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "analytics.tenant_daily_metrics"
+                                                              ],
+                        "metric_id":  "repeat_purchase_rate",
+                        "registered_lineage_source":  "analytics.tenant_daily_metrics",
+                        "registered_unit":  "%",
+                        "sql":  [
+
+                                ],
+                        "sql_parameters":  [
+
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "review_comment_rate",
+                                       "source_table":  "(\n            SELECT DISTINCT oi.seller_id, r.order_id,\n                   fo.purchase_date, r.review_comment_message\n            FROM analytics.v_delivered_order_items oi\n            JOIN analytics.v_delivered_orders fo USING(order_id)\n            LEFT JOIN raw.order_reviews r USING(order_id)\n        ) seller_reviews",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  50.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  50.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "analytics.v_order_unified"
+                                                              ],
+                        "metric_id":  "review_comment_rate",
+                        "registered_lineage_source":  "analytics.v_order_unified",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE review_comment_message IS NOT NULL AND TRIM(review_comment_message) != \u0027\u0027) * 100.0 / NULLIF(COUNT(*), 0) AS value FROM (\n            SELECT DISTINCT oi.seller_id, r.order_id,\n                   fo.purchase_date, r.review_comment_message\n            FROM analytics.v_delivered_order_items oi\n            JOIN analytics.v_delivered_orders fo USING(order_id)\n            LEFT JOIN raw.order_reviews r USING(order_id)\n        ) seller_reviews WHERE seller_reviews.seller_id=%(seller_id)s AND seller_reviews.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "ͬһ�����Ķ����Ʒ����һ�����ۣ�����Ҷ������۹�����������",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "review_score_avg",
+                                       "source_table":  "(\n                SELECT DISTINCT oi.seller_id, oi.order_id, fo.purchase_date\n                FROM analytics.v_delivered_order_items oi\n                JOIN analytics.v_delivered_orders fo USING(order_id)\n            ) seller_orders\n            JOIN raw.order_reviews r USING(order_id)",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  3.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "score",
+                                         "value":  3.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "review_score_avg",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items + raw.order_reviews",
+                        "registered_unit":  "score",
+                        "sql":  [
+                                    "SELECT AVG(r.review_score) AS value FROM (\n                SELECT DISTINCT oi.seller_id, oi.order_id, fo.purchase_date\n                FROM analytics.v_delivered_order_items oi\n                JOIN analytics.v_delivered_orders fo USING(order_id)\n            ) seller_orders\n            JOIN raw.order_reviews r USING(order_id) WHERE seller_orders.seller_id=%(seller_id)s AND seller_orders.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "��ǰ��Χ�����ٳɽ�һ�εķǿ���ƷƷ�����������Ӣ������",
+                                       "metric_name":  "seller_active_category_count",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) LEFT JOIN analytics.v_product_category p USING(product_id)",
+                                       "status":  "ok",
+                                       "value":  4.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "categories",
+                                         "value":  4.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "raw.products"
+                                                              ],
+                        "metric_id":  "seller_active_category_count",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items + raw.products",
+                        "registered_unit":  "categories",
+                        "sql":  [
+                                    "SELECT COUNT(DISTINCT p.product_category_name_english) AS value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) LEFT JOIN analytics.v_product_category p USING(product_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "��ǰ��Χ�����ٳɽ�һ�ε���Ʒ��",
+                                       "metric_name":  "seller_active_product_count",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  4.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "products",
+                                         "value":  4.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_active_product_count",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "products",
+                        "sql":  [
+                                    "SELECT COUNT(DISTINCT oi.product_id) AS value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "��ǩ������Ԥ���ʹ����ڶ�����Ԥ���ʹ�������ƽ��ֵ",
+                                       "metric_name":  "seller_avg_delivery_estimate_abs_error_days",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "status":  "ok",
+                                       "value":  1.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "days",
+                                         "value":  1.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_avg_delivery_estimate_abs_error_days",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "days",
+                        "sql":  [
+                                    "SELECT AVG(ABS(EXTRACT(EPOCH FROM (delivered_customer_at-estimated_delivery_at))/86400.0)) FILTER (WHERE delivered_customer_at IS NOT NULL AND estimated_delivery_at IS NOT NULL) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "����ǰǩ�ն�����Ԥ���ʹ����ڼ�ǩ������ƽ��ֵ",
+                                       "metric_name":  "seller_avg_early_delivery_days",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "status":  "ok",
+                                       "value":  2.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "days",
+                                         "value":  2.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_avg_early_delivery_days",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "days",
+                        "sql":  [
+                                    "SELECT AVG(EXTRACT(EPOCH FROM (estimated_delivery_at-delivered_customer_at))/86400.0) FILTER (WHERE delivered_customer_at \u003c estimated_delivery_at) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���ѽ��������ĵ����˷��ܶ� / ���̶�����",
+                                       "metric_name":  "seller_avg_freight_per_order",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  10.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "BRL/order",
+                                         "value":  10.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_avg_freight_per_order",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "BRL/order",
+                        "sql":  [
+                                    "SELECT SUM(oi.freight_value) / NULLIF(COUNT(DISTINCT oi.order_id), 0) AS value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���ѽ�����Ʒ�е�ƽ����Ʒ�ۼۣ������˷�",
+                                       "metric_name":  "seller_avg_item_price",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  100.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "BRL/item",
+                                         "value":  100.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_avg_item_price",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "BRL/item",
+                        "sql":  [
+                                    "SELECT AVG(oi.price) AS value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���ӳ�ǩ�ն�����ǩ�����ڼ�Ԥ���ʹ�����ƽ��ֵ",
+                                       "metric_name":  "seller_avg_late_delivery_days",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "status":  "ok",
+                                       "value":  1.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "days",
+                                         "value":  1.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_avg_late_delivery_days",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "days",
+                        "sql":  [
+                                    "SELECT AVG(EXTRACT(EPOCH FROM (delivered_customer_at-estimated_delivery_at))/86400.0) FILTER (WHERE delivered_customer_at \u003e estimated_delivery_at) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "�Է�̯֧������Ȩ��ƽ��������",
+                                       "metric_name":  "seller_avg_payment_installments",
+                                       "source_table":  "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  2.2755102040816326
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "installments",
+                                         "value":  2.2755102040816326
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_avg_payment_installments",
+                        "registered_lineage_source":  "analytics.fact_order_payments",
+                        "registered_unit":  "installments",
+                        "sql":  [
+                                    "SELECT SUM(COALESCE(p.payment_installments, 0) * p.allocated_payment_value) / NULLIF(SUM(p.allocated_payment_value), 0) AS value FROM analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id) WHERE p.seller_id=%(seller_id)s AND o.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "Boleto ��̯֧����� / �ܷ�̯֧�����",
+                                       "metric_name":  "seller_boleto_payment_share",
+                                       "source_table":  "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  17.346938775510203
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  17.346938775510203
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_boleto_payment_share",
+                        "registered_lineage_source":  "analytics.fact_order_payments",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT SUM(p.allocated_payment_value) FILTER (WHERE p.payment_type=\u0027boleto\u0027) * 100.0 / NULLIF(SUM(p.allocated_payment_value), 0) AS value FROM analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id) WHERE p.seller_id=%(seller_id)s AND o.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���ÿ���̯֧����� / �ܷ�̯֧�����",
+                                       "metric_name":  "seller_credit_card_payment_share",
+                                       "source_table":  "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  82.65306122448979
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  82.65306122448979
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_credit_card_payment_share",
+                        "registered_lineage_source":  "analytics.fact_order_payments",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT SUM(p.allocated_payment_value) FILTER (WHERE p.payment_type=\u0027credit_card\u0027) * 100.0 / NULLIF(SUM(p.allocated_payment_value), 0) AS value FROM analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id) WHERE p.seller_id=%(seller_id)s AND o.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���̶�������Ʒ���˷Ѻϼ�Ϊ��Ķ���ռ��",
+                                       "metric_name":  "seller_free_shipping_order_rate",
+                                       "source_table":  "(SELECT oi.seller_id,oi.order_id,fo.purchase_date,SUM(oi.freight_value) seller_freight FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id,oi.order_id,fo.purchase_date) seller_orders",
+                                       "status":  "ok",
+                                       "value":  25.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  25.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_free_shipping_order_rate",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE seller_freight=0) * 100.0 / NULLIF(COUNT(*),0) AS value FROM (SELECT oi.seller_id,oi.order_id,fo.purchase_date,SUM(oi.freight_value) seller_freight FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id,oi.order_id,fo.purchase_date) seller_orders WHERE seller_orders.seller_id=%(seller_id)s AND seller_orders.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "seller_freight_to_gmv_rate",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  7.407407407407407
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  7.407407407407407
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_freight_to_gmv_rate",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT SUM(oi.freight_value) * 100.0 / NULLIF(SUM(oi.price + oi.freight_value), 0) AS value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "��ǰ��Χ�����ڴ�ǰ��ͬһ���̹������ȥ�ؿͻ���",
+                                       "metric_name":  "seller_historical_returning_customer_count",
+                                       "source_table":  "analytics.v_delivered_order_items",
+                                       "status":  "ok",
+                                       "value":  1.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "customers",
+                                         "value":  1.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_historical_returning_customer_count",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "customers",
+                        "sql":  [
+                                    "WITH seller_orders AS (SELECT DISTINCT oi.seller_id,oi.order_id,fo.customer_unique_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)), ranked AS (SELECT *,MIN(purchase_date) OVER(PARTITION BY seller_id,customer_unique_id) first_date,ROW_NUMBER() OVER(PARTITION BY seller_id,customer_unique_id ORDER BY purchase_date,order_id) purchase_number FROM seller_orders) SELECT COUNT(DISTINCT customer_unique_id) FILTER (WHERE purchase_number \u003e 1) value FROM ranked WHERE seller_id=%(seller_id)s AND purchase_date=%(metric_date)s "
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "��ǰ��Χ�����ڴ�ǰ��ͬһ���̹������ȥ�ؿͻ���",
+                                       "metric_name":  "seller_historical_returning_customer_rate",
+                                       "source_table":  "analytics.v_delivered_order_items",
+                                       "status":  "ok",
+                                       "value":  33.333333333333336
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  33.33
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_historical_returning_customer_rate",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "WITH seller_orders AS (SELECT DISTINCT oi.seller_id,oi.order_id,fo.customer_unique_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)), ranked AS (SELECT *,MIN(purchase_date) OVER(PARTITION BY seller_id,customer_unique_id) first_date,ROW_NUMBER() OVER(PARTITION BY seller_id,customer_unique_id ORDER BY purchase_date,order_id) purchase_number FROM seller_orders) SELECT COUNT(DISTINCT customer_unique_id) FILTER (WHERE purchase_number \u003e 1) * 100.0 / NULLIF(COUNT(DISTINCT customer_unique_id),0) value FROM ranked WHERE seller_id=%(seller_id)s AND purchase_date=%(metric_date)s "
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���ѽ�����Ʒ�е���Ʒ�������˷�",
+                                       "metric_name":  "seller_item_gross_value",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  500.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "BRL",
+                                         "value":  500.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_item_gross_value",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "BRL",
+                        "sql":  [
+                                    "SELECT COALESCE(SUM(oi.price), 0) AS value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "seller_items_per_order",
+                                       "source_table":  "(SELECT oi.seller_id, oi.order_id, fo.purchase_date, COUNT(*) AS seller_item_count FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id, oi.order_id, fo.purchase_date) seller_orders",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  1.25
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "items/order",
+                                         "value":  1.25
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_items_per_order",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "items/order",
+                        "sql":  [
+                                    "SELECT AVG(seller_item_count) AS value FROM (SELECT oi.seller_id, oi.order_id, fo.purchase_date, COUNT(*) AS seller_item_count FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id, oi.order_id, fo.purchase_date) seller_orders WHERE seller_orders.seller_id=%(seller_id)s AND seller_orders.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "�ѽ���������ȱ��ǩ��ʱ���ֶε�ռ�ȣ���ӳ���������쳣",
+                                       "metric_name":  "seller_missing_delivery_timestamp_rate",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "status":  "ok",
+                                       "value":  25.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  25.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_missing_delivery_timestamp_rate",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE order_status=\u0027delivered\u0027 AND delivered_customer_at IS NULL)*100.0 / NULLIF(COUNT(*) FILTER (WHERE order_status=\u0027delivered\u0027),0) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "�״���õ��̹����������ڵ�ǰ��Χ�ڵ�ȥ�ؿͻ���",
+                                       "metric_name":  "seller_new_customer_count",
+                                       "source_table":  "analytics.v_delivered_order_items",
+                                       "status":  "ok",
+                                       "value":  2.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "customers",
+                                         "value":  2.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_new_customer_count",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "customers",
+                        "sql":  [
+                                    "WITH seller_orders AS (SELECT DISTINCT oi.seller_id,oi.order_id,fo.customer_unique_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)), ranked AS (SELECT *,MIN(purchase_date) OVER(PARTITION BY seller_id,customer_unique_id) first_date,ROW_NUMBER() OVER(PARTITION BY seller_id,customer_unique_id ORDER BY purchase_date,order_id) purchase_number FROM seller_orders) SELECT COUNT(DISTINCT customer_unique_id) FILTER (WHERE first_date BETWEEN %(start_date)s AND %(end_date)s) value FROM ranked WHERE seller_id=%(seller_id)s AND purchase_date=%(metric_date)s "
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "end_date":  "2024-01-02",
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target",
+                                                   "start_date":  "2024-01-02"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "�״���õ��̹����������ڵ�ǰ��Χ�ڵ�ȥ�ؿͻ���",
+                                       "metric_name":  "seller_new_customer_rate",
+                                       "source_table":  "analytics.v_delivered_order_items",
+                                       "status":  "ok",
+                                       "value":  66.66666666666667
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  66.67
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_new_customer_rate",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "WITH seller_orders AS (SELECT DISTINCT oi.seller_id,oi.order_id,fo.customer_unique_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)), ranked AS (SELECT *,MIN(purchase_date) OVER(PARTITION BY seller_id,customer_unique_id) first_date,ROW_NUMBER() OVER(PARTITION BY seller_id,customer_unique_id ORDER BY purchase_date,order_id) purchase_number FROM seller_orders) SELECT COUNT(DISTINCT customer_unique_id) FILTER (WHERE first_date BETWEEN %(start_date)s AND %(end_date)s) * 100.0 / NULLIF(COUNT(DISTINCT customer_unique_id),0) value FROM ranked WHERE seller_id=%(seller_id)s AND purchase_date=%(metric_date)s "
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "end_date":  "2024-01-02",
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target",
+                                                   "start_date":  "2024-01-02"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "�״��ڸõ��̳ɽ��������뵱ǰ��Χ����Ʒ��� / ��Ʒ����ܶ�",
+                                       "metric_name":  "seller_new_product_gross_share",
+                                       "source_table":  "analytics.v_delivered_order_items",
+                                       "status":  "ok",
+                                       "value":  40.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  40.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_new_product_gross_share",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "WITH first_sale AS (SELECT seller_id, product_id, MIN(purchase_date) first_date FROM analytics.v_delivered_order_items GROUP BY seller_id,product_id), x AS (SELECT oi.price, fo.purchase_date, fs.first_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) JOIN first_sale fs ON fs.seller_id=oi.seller_id AND fs.product_id=oi.product_id WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date=%(metric_date)s) SELECT SUM(price) FILTER (WHERE first_date BETWEEN %(start_date)s AND %(end_date)s)*100.0/NULLIF(SUM(price),0) value FROM x"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "end_date":  "2024-01-02",
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target",
+                                                   "start_date":  "2024-01-02"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "end_date":  "2024-01-02",
+                                       "lineage_note":  "������Լ���ų�����Ҷ���",
+                                       "metric_date":  "2024-01-02",
+                                       "metric_name":  "seller_order_bad_review_rate",
+                                       "source_table":  "(SELECT DISTINCT oi.seller_id, oi.order_id, fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)) seller_orders JOIN raw.order_reviews r USING(order_id)",
+                                       "start_date":  "2024-01-02",
+                                       "status":  "ok",
+                                       "value":  50.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  50.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_order_bad_review_rate",
+                        "registered_lineage_source":  "delivered seller orders + order reviews",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE r.review_score \u003c= 2) * 100.0 / NULLIF(COUNT(r.review_score), 0) AS value FROM (SELECT DISTINCT oi.seller_id, oi.order_id, fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id)) seller_orders JOIN raw.order_reviews r USING(order_id) WHERE seller_orders.seller_id=%(seller_id)s AND seller_orders.purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "�µ���ǩ��ȫ��·ʱ���� P90������ǩ�ն���",
+                                       "metric_name":  "seller_p90_order_to_delivery_days",
+                                       "source_table":  "analytics.v_seller_fulfillment",
+                                       "status":  "ok",
+                                       "value":  7.4
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "days",
+                                         "value":  7.4
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_p90_order_to_delivery_days",
+                        "registered_lineage_source":  "analytics.v_seller_fulfillment",
+                        "registered_unit":  "days",
+                        "sql":  [
+                                    "SELECT percentile_cont(0.9) WITHIN GROUP (ORDER BY EXTRACT(EPOCH FROM (delivered_customer_at-purchase_at))/86400.0) FILTER (WHERE delivered_customer_at IS NOT NULL AND purchase_at IS NOT NULL) AS value FROM analytics.v_seller_fulfillment WHERE seller_id=%(seller_id)s AND purchase_date = %(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "����С�ڵ��� 2 ������ռ�ȣ�����Ʒ�������۰���Ʒ����������Ȩ",
+                                       "metric_name":  "seller_product_attributed_bad_review_rate",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) JOIN raw.order_reviews r USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  60.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  60.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_product_attributed_bad_review_rate",
+                        "registered_lineage_source":  "order_items + order_reviews",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE r.review_score\u003c=2)*100.0/NULLIF(COUNT(r.review_score),0) value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) JOIN raw.order_reviews r USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date=%(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "ƽ���������۷֣�����Ʒ�������ۻᰴ��Ʒ����������Ȩ",
+                                       "metric_name":  "seller_product_attributed_review_score_avg",
+                                       "source_table":  "analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) JOIN raw.order_reviews r USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  2.8
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "score",
+                                         "value":  2.8
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_product_attributed_review_score_avg",
+                        "registered_lineage_source":  "order_items + order_reviews",
+                        "registered_unit":  "score",
+                        "sql":  [
+                                    "SELECT AVG(r.review_score) value FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) JOIN raw.order_reviews r USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date=%(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "����С�ڵ��� 2 ������ռ�ȣ�����Ʒ�������۰���Ʒ����������Ȩ",
+                                       "metric_name":  "seller_single_item_order_product_bad_review_rate",
+                                       "source_table":  "(SELECT oi.seller_id,oi.order_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id,oi.order_id,fo.purchase_date HAVING COUNT(*)=1) seller_orders JOIN raw.order_reviews r USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  33.333333333333336
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  33.333333333333336
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_single_item_order_product_bad_review_rate",
+                        "registered_lineage_source":  "order_items + order_reviews",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "SELECT COUNT(*) FILTER (WHERE r.review_score\u003c=2)*100.0/NULLIF(COUNT(r.review_score),0) value FROM (SELECT oi.seller_id,oi.order_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id,oi.order_id,fo.purchase_date HAVING COUNT(*)=1) seller_orders JOIN raw.order_reviews r USING(order_id) WHERE seller_orders.seller_id=%(seller_id)s AND seller_orders.purchase_date=%(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "ƽ���������۷֣�����Ʒ�������ۻᰴ��Ʒ����������Ȩ",
+                                       "metric_name":  "seller_single_item_order_product_review_score_avg",
+                                       "source_table":  "(SELECT oi.seller_id,oi.order_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id,oi.order_id,fo.purchase_date HAVING COUNT(*)=1) seller_orders JOIN raw.order_reviews r USING(order_id)",
+                                       "status":  "ok",
+                                       "value":  3.3333333333333335
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "score",
+                                         "value":  3.3333333333333335
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_single_item_order_product_review_score_avg",
+                        "registered_lineage_source":  "order_items + order_reviews",
+                        "registered_unit":  "score",
+                        "sql":  [
+                                    "SELECT AVG(r.review_score) value FROM (SELECT oi.seller_id,oi.order_id,fo.purchase_date FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) GROUP BY oi.seller_id,oi.order_id,fo.purchase_date HAVING COUNT(*)=1) seller_orders JOIN raw.order_reviews r USING(order_id) WHERE seller_orders.seller_id=%(seller_id)s AND seller_orders.purchase_date=%(metric_date)s"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���۶������Ʒ / ������Ʒ����ܶ�",
+                                       "metric_name":  "seller_top1_product_gross_share",
+                                       "source_table":  "analytics.v_delivered_order_items",
+                                       "status":  "ok",
+                                       "value":  60.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  60.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+
+                                                              ],
+                        "metric_id":  "seller_top1_product_gross_share",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "WITH x AS (SELECT oi.product_id, SUM(oi.price) v FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date=%(metric_date)s GROUP BY oi.product_id) SELECT MAX(v)*100.0/NULLIF(SUM(v),0) value FROM x"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    },
+                    {
+                        "actual":  {
+                                       "lineage_note":  "���۶��������Ʒ�� / ������Ʒ����ܶ�",
+                                       "metric_name":  "seller_top3_category_gross_share",
+                                       "source_table":  "analytics.v_delivered_order_items",
+                                       "status":  "ok",
+                                       "value":  90.0
+                                   },
+                        "authorization_queries":  [
+                                                      "\n        select status, scope_type from iam.tenants\n        where tenant_id=%(tenant_id)s\n        for share\n    ",
+                                                      "\n        select status from iam.users\n        where user_id=%(user_id)s\n        for share\n    ",
+                                                      "\n        select role from iam.tenant_memberships\n        where tenant_id=%(tenant_id)s and user_id=%(user_id)s and revoked_at is null\n        for share\n    ",
+                                                      "\n            select access_start_date, access_end_date\n            from iam.membership_seller_grants\n            where tenant_id=%(tenant_id)s and user_id=%(user_id)s and seller_id=%(seller_id)s\n              and revoked_at is null\n            for share\n        "
+                                                  ],
+                        "checks":  {
+                                       "date_filter":  true,
+                                       "registered_unit":  true,
+                                       "seller_filter":  true,
+                                       "source":  true,
+                                       "status":  true,
+                                       "tenant_seller_authorization":  true,
+                                       "value":  true
+                                   },
+                        "exception":  null,
+                        "expected":  {
+                                         "date":  "2024-01-02",
+                                         "unit":  "%",
+                                         "value":  90.0
+                                     },
+                        "lineage_tokens_missing_from_query":  [
+                                                                  "raw.products"
+                                                              ],
+                        "metric_id":  "seller_top3_category_gross_share",
+                        "registered_lineage_source":  "analytics.v_delivered_order_items + raw.products",
+                        "registered_unit":  "%",
+                        "sql":  [
+                                    "WITH x AS (SELECT p.product_category_name_english k, SUM(oi.price) v FROM analytics.v_delivered_order_items oi JOIN analytics.v_delivered_orders fo USING(order_id) LEFT JOIN analytics.v_product_category p USING(product_id) WHERE oi.seller_id=%(seller_id)s AND fo.purchase_date=%(metric_date)s GROUP BY k), t AS (SELECT SUM(v) v FROM x), r AS (SELECT v FROM x ORDER BY v DESC LIMIT 3) SELECT (SELECT SUM(v) FROM r)*100.0/NULLIF((SELECT v FROM t),0) value"
+                                ],
+                        "sql_parameters":  [
+                                               {
+                                                   "metric_date":  "2024-01-02",
+                                                   "seller_id":  "seller-target"
+                                               }
+                                           ]
+                    }
+                ]
+}

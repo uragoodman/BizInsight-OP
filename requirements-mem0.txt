@@ -1,0 +1,6 @@
+# WP3 optional runtime. Install alongside requirements-rag-qdrant-runtime.txt.
+# mem0ai 2.2.1 is the frozen OSS SDK; qdrant-client 1.16.2 is compatible with
+# the Qdrant 1.15.1 server and is also the project's RAG pin.
+-r requirements-rag-qdrant-runtime.txt
+mem0ai==2.2.1
+qdrant-client==1.16.2

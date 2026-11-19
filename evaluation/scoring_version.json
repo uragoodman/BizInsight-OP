@@ -1,0 +1,16 @@
+{
+  "scenario_scorer_version": "root-cause-v4",
+  "diagnostic_run_scorer_version": "root-cause-run-v2",
+  "changes": [
+    "Fail closed on unsupported root-cause expectation fields, including found_dimension now being explicitly scored.",
+    "Require structured terminal decisions and cited typed evidence bound to completed valid actions, target metric, scope, and comparison periods for factor and dimension findings.",
+    "Keep descriptive statistical contribution separate from business-cause claims.",
+    "Record investigation stop code separately from final output status.",
+    "Add per case × arm × replicate acceptance, effective diagnosis, correct safe stop, terminal/presentation consistency, and scoped evidence scoring.",
+    "Keep safe-stop acceptance separate from effective numeric decomposition/statistical contribution; EXECUTION_FAILED is never a correct safe stop.",
+    "Preserve explicit denominators and keep incomplete Token usage null; a no-model-request run remains a valid zero-token run.",
+    "Score cross_metric_link separately from numeric_decomposition; require an explicit structured terminal link backed by cited, validated registered-association evidence that names the related metric.",
+    "Accept trusted typed evidence validated by the investigation engine as safe-stop support even when the parallel legacy evidence-bundle validation_status is absent.",
+    "Count correct_safe_stop only when the case expects safe_stop; keep safe_stop_behavior_observed as a separate observed behavior for runs expected to diagnose."
+  ]
+}

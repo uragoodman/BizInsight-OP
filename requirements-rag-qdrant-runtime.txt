@@ -1,0 +1,8 @@
+# Qdrant/HuggingFace runtime packages layered on top of requirements.txt.
+# PyTorch is installed separately as a CPU-only wheel in the Dockerfile.
+llama-index
+llama-index-vector-stores-qdrant
+llama-index-embeddings-huggingface
+qdrant-client==1.16.2
+sentence-transformers
+watchdog>=4,<7

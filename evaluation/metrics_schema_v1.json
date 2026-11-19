@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "bizinsight-metrics-v1",
+  "title": "BizInsight metric case and run records",
+  "definitions": {
+    "dimension_role_case": {
+      "type": "object",
+      "required": [
+        "case_id", "input", "mentions", "roles", "expected_candidates",
+        "expected_support", "expected_clarification", "expected_contract", "expected_terminal"
+      ],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "input": {"type": "string", "minLength": 1},
+        "mentions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "raw_text", "start", "end", "canonical"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "raw_text": {"type": "string", "minLength": 1},
+              "start": {"type": "integer", "minimum": 0},
+              "end": {"type": "integer", "minimum": 1},
+              "canonical": {"type": "string", "minLength": 1}
+            },
+            "additionalProperties": false
+          }
+        },
+        "roles": {"type": "object", "additionalProperties": {"type": "string"}},
+        "expected_candidates": {"type": "array", "items": {"type": "string"}},
+        "expected_support": {"type": "object"},
+        "expected_clarification": {
+          "type": "object",
+          "required": ["required", "reason_code"],
+          "properties": {
+            "required": {"type": "boolean"},
+            "reason_code": {"type": ["string", "null"]}
+          },
+          "additionalProperties": false
+        },
+        "expected_contract": {"type": "object"},
+        "expected_terminal": {"type": "string", "enum": ["auto", "verify", "clarify"]}
+      },
+      "additionalProperties": true
+    },
+    "case": {
+      "type": "object",
+      "required": [
+        "case_id", "category", "input", "expected_mode", "expected_labels",
+        "expected_types", "expected_keys", "expected_fields"
+      ],
+      "properties": {
+        "case_id": {"type": "string", "minLength": 1},
+        "category": {"type": "string", "enum": ["intent", "retrieval", "context", "sql"]},
+        "input": {"type": "string", "minLength": 1},
+        "expected_mode": {"type": "string", "enum": ["retrieval", "none", "registry_lookup"]},
+        "expected_labels": {"type": "array", "items": {"type": "string"}},
+        "expected_trigger_ids": {"type": "array", "items": {"type": "string"}},
+        "expected_types": {"type": "array", "items": {"type": "string"}},
+        "expected_keys": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+        "expected_fields": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+        "expected_blocked_categories": {"type": "object", "additionalProperties": {"type": "string"}},
+        "expected_excluded_values": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+        "expected_negative_query_params": {"type": "object", "additionalProperties": {"type": "array", "items": {"type": "string"}}},
+        "expected_lookup": {"type": ["object", "null"]},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "run": {
+      "type": "object",
+      "required": [
+        "run_id", "case_id", "dataset_version", "rules_version", "variant",
+        "repeat", "status", "stage"
+      ],
+      "properties": {
+        "run_id": {"type": "string"},
+        "case_id": {"type": "string"},
+        "dataset_version": {"type": "string"},
+        "rules_version": {"type": "string"},
+        "code_commit": {"type": ["string", "null"]},
+        "worktree_dirty": {"type": ["boolean", "null"]},
+        "variant": {"type": "string"},
+        "repeat": {"type": "integer", "minimum": 1},
+        "model": {"type": ["string", "null"]},
+        "config_hash": {"type": ["string", "null"]},
+        "status": {"type": "string", "enum": ["completed", "failed", "timeout", "skipped"]},
+        "stage": {"type": "string", "enum": ["S0", "S1", "S2", "S3"]},
+        "latency_ms": {"type": ["number", "null"]},
+        "llm_calls": {"type": ["integer", "null"]},
+        "tokens": {"type": ["object", "null"]},
+        "provider_calls": {"type": ["integer", "null"]},
+        "query_hash": {"type": ["string", "null"]},
+        "raw_candidates": {"type": "array"},
+        "provider_filtered": {"type": "array"},
+        "resolver_accepted": {"type": "array"},
+        "applied": {"type": "array"},
+        "error": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    }
+  }
+}

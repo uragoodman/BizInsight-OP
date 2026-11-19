@@ -1,0 +1,36 @@
+{
+  "name": "bizinsight-console",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --strictPort",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "gen:events": "node scripts/run-python.mjs ../scripts/generate_sse_events.py",
+    "check:events": "node scripts/run-python.mjs ../scripts/generate_sse_events.py --check"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "dompurify": "^3.4.17",
+    "echarts": "^6.1.0",
+    "element-plus": "^2.8.8",
+    "markdown-it": "^15.0.3",
+    "pinia": "^2.2.6",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/markdown-it": "^14.2.0",
+    "@types/node": "^22.10.2",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "concurrently": "^9.1.2",
+    "typescript": "~5.6.3",
+    "vite": "^6.0.3",
+    "vitest": "^4.1.11",
+    "vue-tsc": "^2.2.0"
+  }
+}

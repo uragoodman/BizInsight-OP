@@ -1,0 +1,81 @@
+planning_defaults:
+  examples: ["查询{display_name}", "查看{display_name}趋势"]
+  limitations: "漏斗指标基于订单创建日期（cohort）归因，阶段由时间戳推导。取消/不可用订单不计入后续阶段。"
+metrics:
+  - metric_id: order_approval_rate
+    display_name: 订单审批率
+    aliases: [审批率, 审批转化率]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/order_funnel.md
+    display_order: 50
+    surfaces: [explorer, report, chat]
+    implementations:
+      platform:
+        handler_key: funnel.order_approval_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_order_cohort_funnel
+        lineage_description: 有审批时间订单数 / 总订单数 × 100
+      seller:
+        handler_key: funnel.order_approval_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: raw.orders + raw.order_items
+        lineage_description: 有审批时间的店铺订单数 / 店铺总订单数 × 100
+
+  - metric_id: order_shipment_rate
+    display_name: 订单发货率
+    aliases: [发货率, 交运率]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/order_funnel.md
+    display_order: 51
+    surfaces: [explorer, report, chat]
+    implementations:
+      platform:
+        handler_key: funnel.order_shipment_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_order_cohort_funnel
+        lineage_description: 有交承运商时间订单数 / 总订单数 × 100
+      seller:
+        handler_key: funnel.order_shipment_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: raw.orders + raw.order_items
+        lineage_description: 有交承运商时间的店铺订单数 / 店铺总订单数 × 100
+
+  - metric_id: order_final_delivery_rate
+    display_name: 最终交付率
+    aliases: [交付率, 签收率]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/order_funnel.md
+    display_order: 52
+    surfaces: [explorer, report, chat]
+    implementations:
+      platform:
+        handler_key: funnel.order_final_delivery_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_order_cohort_funnel
+        lineage_description: 状态为 delivered 的订单数 / 总订单数 × 100
+      seller:
+        handler_key: funnel.order_final_delivery_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: raw.orders + raw.order_items
+        lineage_description: 状态为 delivered 的店铺订单数 / 店铺总订单数 × 100

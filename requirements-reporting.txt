@@ -1,0 +1,4 @@
+-r requirements.txt
+
+# Optional Phase 6 chart rendering. The API remains functional without it.
+matplotlib==3.10.8

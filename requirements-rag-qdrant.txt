@@ -1,0 +1,5 @@
+-r requirements.txt
+-r requirements-rag-qdrant-runtime.txt
+
+# Optional Qdrant vector backend and local HuggingFace embeddings.
+torch

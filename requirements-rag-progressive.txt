@@ -1,0 +1,7 @@
+# Optional self-hosted progressive-delivery integrations.
+# The core Release Controller works without these packages; install this file
+# when enabling Unleash/OpenFeature or Ragas evaluator workers.
+openfeature-sdk>=0.8,<1
+unleashclient>=6,<7
+ragas>=0.4,<0.5
+langchain-community>=0.4,<1

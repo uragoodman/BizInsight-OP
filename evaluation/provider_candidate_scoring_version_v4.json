@@ -1,0 +1,30 @@
+{
+  "scorer_version": "provider-candidate-run-v4",
+  "previous_version": "provider-candidate-run-v3",
+  "base_scorer_version": "root-cause-run-v2",
+  "protocol_id": "provider-critic-ablation-candidate-17",
+  "status": "candidate_protocol_only_not_global_default",
+  "version_change_reason": "v3 reported registered numeric decomposition failures because it read component truth from a sibling field instead of scoring_expectation.values.components, while runtime output had independent evidence-unit, scope, canonical text-unit, and deterministic causal-review gaps. v4 fixes these contracts without changing candidate truth, tolerances, or v3 scoring semantics.",
+  "changes_from_v3": [
+    "Read expected numeric components from scoring_expectation.values.components; leave the candidate files and their numeric truth unchanged.",
+    "For symmetric_ratio_v1, map numerator_effect and denominator_effect only when the runtime metric registry period aggregation, evidence factor_metrics order, component IDs and component types in order, candidate method, expected factor IDs, and component units all match exactly. Invalid, missing, duplicated, reordered, or unsupported structures fail closed.",
+    "Registered decomposition typed evidence records the metric's registered level unit; component effects use the registered operation's absolute-delta unit, percentage_points for percent-valued metrics and the registered metric unit otherwise.",
+    "AnalysisPresentation.scope is projected from the authorized investigation target and validated decomposition evidence when controlled explorer scope is absent; dates come from the evidence comparison periods.",
+    "Explicit registered numeric decomposition answers use deterministic, evidence-bound text with canonical units separated from numbers. Other answer paths retain their prior rendering behavior.",
+    "The deterministic unsupported-causal-assertion review runs for explicit registered_numeric_decomposition metric queries in both arms; ordinary metric_query remains unchanged.",
+    "Keep v3 callable as score_provider_candidate_run_v3 and retain provider_candidate_scoring_version.json unchanged. The active candidate scorer version is v4; this does not freeze or authorize a Provider run."
+  ],
+  "unchanged": [
+    "Candidate IDs, user questions, scope, periods, independent truth, registered methods, tolerances, score denominators, and Critic full/off requirements.",
+    "No business-causality claim is inferred from numeric decomposition; causal language checks only reject unsupported causal assertions.",
+    "No historical trace, run record, v1/v2/v3 score, or formal experiment result is overwritten."
+  ],
+  "preserved_v3": "evaluation/provider_candidate_scoring_version.json; callable scorer: evaluation.provider_candidate_protocol.score_provider_candidate_run_v3",
+  "candidate_protocol_input": "docs/testing/provider_candidate_protocol_17_20261013/candidate_protocol_17.json (unchanged; records v3 candidate truth protocol)",
+  "tolerance_source": "Unchanged candidate absolute tolerance and reviewed two-decimal display rules; no tolerance is widened by observed model output.",
+  "denominator": "Unchanged: 17 cases x 2 arms x 3 replicates = 102 planned records; this protocol revision does not execute them.",
+  "limitations": [
+    "The saved NC03 traces remain historical outputs and are only rescored; they are not regenerated under the fixed answer and evidence paths.",
+    "This version change is not an independent-set result, Provider experiment, code freeze, or authorization to run candidates."
+  ]
+}

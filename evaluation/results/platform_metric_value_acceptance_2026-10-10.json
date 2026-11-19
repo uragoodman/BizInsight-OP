@@ -1,0 +1,757 @@
+{
+  "run_date": "2026-10-10",
+  "entrypoint": "get_registry().execute(metric_id, operation=\"value\", scope=\"platform\", metric_date=\"2024-01-02\")",
+  "isolated_database": true,
+  "registered_platform_value_metrics": 24,
+  "passed": 20,
+  "failed": 4,
+  "items": [
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "avg_approval_lead_hours",
+        "source_table": "analytics.fact_fulfillment",
+        "status": "ok",
+        "value": 7.4
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_fulfillment",
+        "sql_sources": [
+          "analytics.fact_fulfillment"
+        ],
+        "unit": "hours",
+        "value": 7.4
+      },
+      "metric_id": "avg_approval_lead_hours",
+      "sql": [
+        "SELECT AVG(approval_lead_hours) AS value FROM analytics.fact_fulfillment WHERE purchase_date=%(metric_date)s"
+      ],
+      "unit_from_registry": "hours",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "avg_delivery_lead_time",
+        "source_table": "raw.orders",
+        "status": "ok",
+        "value": 3.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "raw.orders",
+        "sql_sources": [
+          "raw.orders"
+        ],
+        "unit": "days",
+        "value": 3.0
+      },
+      "metric_id": "avg_delivery_lead_time",
+      "sql": [
+        "\n        SELECT\n            AVG(EXTRACT(EPOCH FROM (order_delivered_customer_date - order_purchase_timestamp)) / 86400.0) AS avg_delivery_lead_time\n        FROM raw.orders\n        WHERE DATE(order_purchase_timestamp) = %(metric_date)s\n          AND order_status = 'delivered'\n          AND order_delivered_customer_date IS NOT NULL\n        "
+      ],
+      "unit_from_registry": "days",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "avg_delivery_transit_hours",
+        "source_table": "analytics.fact_fulfillment",
+        "status": "ok",
+        "value": 16.6
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_fulfillment",
+        "sql_sources": [
+          "analytics.fact_fulfillment"
+        ],
+        "unit": "hours",
+        "value": 16.6
+      },
+      "metric_id": "avg_delivery_transit_hours",
+      "sql": [
+        "SELECT AVG(delivery_transit_hours) AS value FROM analytics.fact_fulfillment WHERE purchase_date=%(metric_date)s"
+      ],
+      "unit_from_registry": "hours",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "avg_dispatch_lead_hours",
+        "source_table": "analytics.fact_fulfillment",
+        "status": "ok",
+        "value": 8.4
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_fulfillment",
+        "sql_sources": [
+          "analytics.fact_fulfillment"
+        ],
+        "unit": "hours",
+        "value": 8.4
+      },
+      "metric_id": "avg_dispatch_lead_hours",
+      "sql": [
+        "SELECT AVG(dispatch_lead_hours) AS value FROM analytics.fact_fulfillment WHERE purchase_date=%(metric_date)s"
+      ],
+      "unit_from_registry": "hours",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "avg_items_per_order",
+        "source_table": "analytics.fact_orders",
+        "status": "ok",
+        "value": 4.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_orders",
+        "sql_sources": [
+          "analytics.v_delivered_orders"
+        ],
+        "unit": "items/order",
+        "value": 4.0
+      },
+      "metric_id": "avg_items_per_order",
+      "sql": [
+        "\n        SELECT AVG(item_count) AS avg_items_per_order\n        FROM analytics.v_delivered_orders\n        WHERE purchase_date = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "items/order",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "avg_order_value",
+        "source_table": "analytics.daily_metrics",
+        "status": "ok",
+        "value": 260.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.daily_metrics",
+        "sql_sources": [
+          "analytics.daily_metrics"
+        ],
+        "unit": "BRL/order",
+        "value": 260.0
+      },
+      "metric_id": "avg_order_value",
+      "sql": [
+        "\n        SELECT\n            metric_date,\n            gmv,\n            order_count,\n            avg_order_value\n        FROM analytics.daily_metrics\n        WHERE metric_date = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "BRL/order",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "bad_review_rate",
+        "source_table": "raw.order_reviews",
+        "status": "ok",
+        "value": 25.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "raw.order_reviews",
+        "sql_sources": [
+          "raw.orders",
+          "raw.order_reviews"
+        ],
+        "unit": "%",
+        "value": 25.0
+      },
+      "metric_id": "bad_review_rate",
+      "sql": [
+        "\n        SELECT\n            COUNT(r.review_score) AS reviewed_orders,\n            SUM(CASE WHEN r.review_score <= 2 THEN 1 ELSE 0 END) AS bad_review_orders\n        FROM raw.orders o\n        LEFT JOIN raw.order_reviews r\n            ON o.order_id = r.order_id\n        WHERE DATE(o.order_purchase_timestamp) = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "cancel_rate",
+        "source_table": "raw.orders",
+        "status": "ok",
+        "value": 20.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "raw.orders",
+        "sql_sources": [
+          "raw.orders"
+        ],
+        "unit": "%",
+        "value": 20.0
+      },
+      "metric_id": "cancel_rate",
+      "sql": [
+        "\n        SELECT\n            COUNT(*) AS total_orders,\n            SUM(CASE WHEN order_status = 'canceled' THEN 1 ELSE 0 END) AS canceled_orders\n        FROM raw.orders\n        WHERE DATE(order_purchase_timestamp) = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "customer_count",
+        "source_table": "analytics.v_delivered_orders",
+        "status": "ok",
+        "value": 3.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.v_delivered_orders",
+        "sql_sources": [
+          "analytics.v_delivered_orders"
+        ],
+        "unit": "customers",
+        "value": 3.0
+      },
+      "metric_id": "customer_count",
+      "sql": [
+        "\n        SELECT COUNT(DISTINCT customer_unique_id) AS customer_count\n        FROM analytics.v_delivered_orders\n        WHERE purchase_date = %(metric_date)s\n          AND customer_unique_id IS NOT NULL\n        "
+      ],
+      "unit_from_registry": "customers",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "delivery_delay_rate",
+        "source_table": "raw.orders",
+        "status": "ok",
+        "value": 33.33
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "raw.orders",
+        "sql_sources": [
+          "raw.orders"
+        ],
+        "unit": "%",
+        "value": 33.33
+      },
+      "metric_id": "delivery_delay_rate",
+      "sql": [
+        "\n        SELECT\n            SUM(\n                CASE\n                    WHEN order_status = 'delivered'\n                         AND order_delivered_customer_date IS NOT NULL\n                         AND order_estimated_delivery_date IS NOT NULL\n                    THEN 1\n                    ELSE 0\n                END\n            ) AS delivered_orders,\n            SUM(\n                CASE\n                    WHEN order_status = 'delivered'\n                         AND order_delivered_customer_date IS NOT NULL\n                         AND order_estimated_delivery_date IS NOT NULL\n                         AND order_delivered_customer_date > order_estimated_delivery_date\n                    THEN 1\n                    ELSE 0\n                END\n            ) AS delayed_orders\n        FROM raw.orders\n        WHERE DATE(order_purchase_timestamp) = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "freight_rate",
+        "source_table": "analytics.fact_orders",
+        "status": "ok",
+        "value": 12.31
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_orders",
+        "sql_sources": [
+          "analytics.fact_orders"
+        ],
+        "unit": "%",
+        "value": 12.31
+      },
+      "metric_id": "freight_rate",
+      "sql": [
+        "\n        SELECT\n            SUM(freight_value) AS total_freight_value,\n            SUM(item_gross_value + freight_value) AS total_gmv\n        FROM analytics.fact_orders\n        WHERE purchase_date = %(metric_date)s AND order_status = 'delivered'\n        "
+      ],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "freight_value",
+        "source_table": "analytics.v_delivered_orders",
+        "status": "ok",
+        "value": 160.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.v_delivered_orders",
+        "sql_sources": [
+          "analytics.v_delivered_orders"
+        ],
+        "unit": "BRL",
+        "value": 160.0
+      },
+      "metric_id": "freight_value",
+      "sql": [
+        "\n        SELECT\n            SUM(freight_value) AS freight_value\n        FROM analytics.v_delivered_orders\n        WHERE purchase_date = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "BRL",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "gmv",
+        "source_table": "analytics.daily_metrics",
+        "status": "ok",
+        "value": 1300.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.daily_metrics",
+        "sql_sources": [
+          "analytics.daily_metrics"
+        ],
+        "unit": "BRL",
+        "value": 1300.0
+      },
+      "metric_id": "gmv",
+      "sql": [
+        "\n        SELECT\n            metric_date,\n            gmv,\n            order_count,\n            avg_order_value\n        FROM analytics.daily_metrics\n        WHERE metric_date = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "BRL",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "installment_order_share",
+        "source_table": "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+        "status": "ok",
+        "value": 13.85
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+        "sql_sources": [
+          "analytics.fact_order_payments",
+          "analytics.fact_orders"
+        ],
+        "unit": "%",
+        "value": 13.85
+      },
+      "metric_id": "installment_order_share",
+      "sql": [
+        "SELECT SUM(CASE WHEN p.payment_installments > 1 THEN p.payment_value ELSE 0 END) * 100.0 / NULLIF(SUM(p.payment_value), 0) AS value FROM analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id) WHERE o.purchase_date=%(metric_date)s"
+      ],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "on_time_delivery_rate",
+        "source_table": "raw.orders",
+        "status": "ok",
+        "value": 66.67
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "raw.orders",
+        "sql_sources": [
+          "raw.orders"
+        ],
+        "unit": "%",
+        "value": 66.67
+      },
+      "metric_id": "on_time_delivery_rate",
+      "sql": [
+        "\n        SELECT\n            SUM(\n                CASE\n                    WHEN order_status = 'delivered'\n                         AND order_delivered_customer_date IS NOT NULL\n                         AND order_estimated_delivery_date IS NOT NULL\n                    THEN 1\n                    ELSE 0\n                END\n            ) AS delivered_orders,\n            SUM(\n                CASE\n                    WHEN order_status = 'delivered'\n                         AND order_delivered_customer_date IS NOT NULL\n                         AND order_estimated_delivery_date IS NOT NULL\n                         AND order_delivered_customer_date <= order_estimated_delivery_date\n                    THEN 1\n                    ELSE 0\n                END\n            ) AS on_time_orders\n        FROM raw.orders\n        WHERE DATE(order_purchase_timestamp) = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "exception": "KeyError: 'order_approval_rate'",
+        "metric_date": null,
+        "metric_name": "order_approval_rate",
+        "source_table": null,
+        "status": "exception",
+        "value": null
+      },
+      "checks": {
+        "date": false,
+        "registry_unit": true,
+        "source_label": false,
+        "sql_sources": false,
+        "status": false,
+        "value": false
+      },
+      "expected": {
+        "source": "analytics.v_order_cohort_funnel",
+        "sql_sources": [
+          "analytics.v_order_cohort_funnel"
+        ],
+        "unit": "%",
+        "value": 86.36
+      },
+      "metric_id": "order_approval_rate",
+      "sql": [],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "order_count",
+        "source_table": "analytics.daily_metrics",
+        "status": "ok",
+        "value": 5.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.daily_metrics",
+        "sql_sources": [
+          "analytics.daily_metrics"
+        ],
+        "unit": "orders",
+        "value": 5.0
+      },
+      "metric_id": "order_count",
+      "sql": [
+        "\n        SELECT\n            metric_date,\n            gmv,\n            order_count,\n            avg_order_value\n        FROM analytics.daily_metrics\n        WHERE metric_date = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "orders",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "exception": "KeyError: 'order_final_delivery_rate'",
+        "metric_date": null,
+        "metric_name": "order_final_delivery_rate",
+        "source_table": null,
+        "status": "exception",
+        "value": null
+      },
+      "checks": {
+        "date": false,
+        "registry_unit": true,
+        "source_label": false,
+        "sql_sources": false,
+        "status": false,
+        "value": false
+      },
+      "expected": {
+        "source": "analytics.v_order_cohort_funnel",
+        "sql_sources": [
+          "analytics.v_order_cohort_funnel"
+        ],
+        "unit": "%",
+        "value": 36.36
+      },
+      "metric_id": "order_final_delivery_rate",
+      "sql": [],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "exception": "KeyError: 'order_shipment_rate'",
+        "metric_date": null,
+        "metric_name": "order_shipment_rate",
+        "source_table": null,
+        "status": "exception",
+        "value": null
+      },
+      "checks": {
+        "date": false,
+        "registry_unit": true,
+        "source_label": false,
+        "sql_sources": false,
+        "status": false,
+        "value": false
+      },
+      "expected": {
+        "source": "analytics.v_order_cohort_funnel",
+        "sql_sources": [
+          "analytics.v_order_cohort_funnel"
+        ],
+        "unit": "%",
+        "value": 50.0
+      },
+      "metric_id": "order_shipment_rate",
+      "sql": [],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "payment_value",
+        "source_table": "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+        "status": "ok",
+        "value": 1300.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id)",
+        "sql_sources": [
+          "analytics.fact_order_payments",
+          "analytics.fact_orders"
+        ],
+        "unit": "BRL",
+        "value": 1300.0
+      },
+      "metric_id": "payment_value",
+      "sql": [
+        "SELECT SUM(p.payment_value) AS value FROM analytics.fact_order_payments p JOIN analytics.fact_orders o USING(order_id) WHERE o.purchase_date=%(metric_date)s"
+      ],
+      "unit_from_registry": "BRL",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "repeat_customer_count",
+        "source_table": "analytics.fact_orders",
+        "status": "ok",
+        "value": 2.0
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_orders",
+        "sql_sources": [
+          "analytics.v_delivered_orders"
+        ],
+        "unit": "customers",
+        "value": 2.0
+      },
+      "metric_id": "repeat_customer_count",
+      "sql": [
+        "\n        SELECT COUNT(DISTINCT fo.customer_unique_id) AS repeat_customer_count\n        FROM analytics.v_delivered_orders fo\n        WHERE fo.purchase_date = %(metric_date)s\n          AND fo.customer_unique_id IS NOT NULL\n          AND EXISTS (\n              SELECT 1\n              FROM analytics.v_delivered_orders prev\n              WHERE prev.customer_unique_id = fo.customer_unique_id\n                AND prev.purchase_date < %(metric_date)s\n          )\n        "
+      ],
+      "unit_from_registry": "customers",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "repeat_purchase_rate",
+        "source_table": "analytics.fact_orders",
+        "status": "ok",
+        "value": 66.67
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "analytics.fact_orders",
+        "sql_sources": [
+          "analytics.v_delivered_orders"
+        ],
+        "unit": "%",
+        "value": 66.67
+      },
+      "metric_id": "repeat_purchase_rate",
+      "sql": [
+        "\n        SELECT COUNT(DISTINCT customer_unique_id) AS customer_count\n        FROM analytics.v_delivered_orders\n        WHERE purchase_date = %(metric_date)s\n          AND customer_unique_id IS NOT NULL\n        ",
+        "\n        SELECT COUNT(DISTINCT fo.customer_unique_id) AS repeat_customer_count\n        FROM analytics.v_delivered_orders fo\n        WHERE fo.purchase_date = %(metric_date)s\n          AND fo.customer_unique_id IS NOT NULL\n          AND EXISTS (\n              SELECT 1\n              FROM analytics.v_delivered_orders prev\n              WHERE prev.customer_unique_id = fo.customer_unique_id\n                AND prev.purchase_date < %(metric_date)s\n          )\n        "
+      ],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "exception": "KeyError: 'review_comment_rate'",
+        "metric_date": null,
+        "metric_name": "review_comment_rate",
+        "source_table": null,
+        "status": "exception",
+        "value": null
+      },
+      "checks": {
+        "date": false,
+        "registry_unit": true,
+        "source_label": false,
+        "sql_sources": false,
+        "status": false,
+        "value": false
+      },
+      "expected": {
+        "source": "raw.orders o LEFT JOIN raw.order_reviews r ON r.order_id = o.order_id",
+        "sql_sources": [
+          "raw.orders",
+          "raw.order_reviews"
+        ],
+        "unit": "%",
+        "value": 50.0
+      },
+      "metric_id": "review_comment_rate",
+      "sql": [],
+      "unit_from_registry": "%",
+      "unit_in_result": null
+    },
+    {
+      "actual": {
+        "metric_date": "2024-01-02",
+        "metric_name": "review_score_avg",
+        "source_table": "raw.order_reviews",
+        "status": "ok",
+        "value": 3.25
+      },
+      "checks": {
+        "date": true,
+        "registry_unit": true,
+        "source_label": true,
+        "sql_sources": true,
+        "status": true,
+        "value": true
+      },
+      "expected": {
+        "source": "raw.order_reviews",
+        "sql_sources": [
+          "raw.orders",
+          "raw.order_reviews"
+        ],
+        "unit": "score",
+        "value": 3.25
+      },
+      "metric_id": "review_score_avg",
+      "sql": [
+        "\n        SELECT\n            AVG(r.review_score) AS review_score_avg\n        FROM raw.orders o\n        LEFT JOIN raw.order_reviews r\n            ON o.order_id = r.order_id\n        WHERE DATE(o.order_purchase_timestamp) = %(metric_date)s\n        "
+      ],
+      "unit_from_registry": "score",
+      "unit_in_result": null
+    }
+  ],
+  "log_file": "evaluation\\results\\platform_metric_value_acceptance_2026-10-10.log"
+}

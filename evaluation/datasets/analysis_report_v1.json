@@ -1,0 +1,244 @@
+{
+  "dataset_version": "v1-analysis-report-25",
+  "description": "普通经营分析与报告独立评测集，不与根因诊断案例合并。",
+  "cases": [
+    {
+      "id": "ar-definition-gmv",
+      "category": "metric_definition",
+      "query": "GMV 是什么？",
+      "expect": {
+        "task_type": "metric_definition",
+        "require_rag": true
+      }
+    },
+    {
+      "id": "ar-definition-aov",
+      "category": "metric_definition",
+      "query": "平均客单价怎么算？",
+      "expect": {
+        "task_type": "metric_definition",
+        "require_rag": true
+      }
+    },
+    {
+      "id": "ar-definition-delay",
+      "category": "metric_definition",
+      "query": "配送延迟率 delivery_delay_rate 的计算方式是什么？",
+      "expect": {
+        "task_type": "metric_definition",
+        "require_rag": true
+      }
+    },
+    {
+      "id": "ar-definition-cancel",
+      "category": "metric_definition",
+      "query": "退款率 cancel_rate 的口径和计算方式是什么？",
+      "expect": {
+        "task_type": "metric_definition",
+        "require_rag": true
+      }
+    },
+    {
+      "id": "ar-query-gmv-date",
+      "category": "metric_query",
+      "query": "查询 2018-08-10 的 GMV",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true
+      }
+    },
+    {
+      "id": "ar-query-orders-date",
+      "category": "metric_query",
+      "query": "查询 2018-08-12 的订单量",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true
+      }
+    },
+    {
+      "id": "ar-query-aov-date",
+      "category": "metric_query",
+      "query": "查询 2018-08-14 的平均客单价",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true
+      }
+    },
+    {
+      "id": "ar-query-gmv-trend",
+      "category": "metric_query",
+      "query": "查看最近 7 天 GMV 趋势",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_trend": true
+      }
+    },
+    {
+      "id": "ar-query-orders-trend",
+      "category": "metric_query",
+      "query": "最近 30 天订单量趋势怎么样？",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_trend": true
+      }
+    },
+    {
+      "id": "ar-trend-week-over-week",
+      "category": "comparison",
+      "query": "Compare GMV between 2018-08-10 and 2018-08-09",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_comparison": true
+      }
+    },
+    {
+      "id": "ar-trend-month-over-month",
+      "category": "comparison",
+      "query": "Compare order_count between 2018-08-10 and 2018-08-09",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_comparison": true
+      }
+    },
+    {
+      "id": "ar-trend-metric-pair",
+      "category": "comparison",
+      "query": "对比 GMV 和客单价最近一周的变化",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true
+      }
+    },
+    {
+      "id": "ar-trend-dimension-date",
+      "category": "comparison",
+      "query": "Compare GMV between 2018-08-10 and 2018-08-09",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_comparison": true
+      }
+    },
+    {
+      "id": "ar-contribution-city",
+      "category": "contribution",
+      "query": "Breakdown GMV between 2018-08-10 and 2018-08-09 by customer_city contribution",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_contribution": true
+      }
+    },
+    {
+      "id": "ar-contribution-payment",
+      "category": "contribution",
+      "query": "Breakdown GMV between 2018-08-10 and 2018-08-09 by payment_type contribution",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_contribution": true
+      }
+    },
+    {
+      "id": "ar-contribution-category",
+      "category": "contribution",
+      "query": "Breakdown GMV between 2018-08-10 and 2018-08-09 by product_category contribution",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_contribution": true
+      }
+    },
+    {
+      "id": "ar-contribution-seller",
+      "category": "contribution",
+      "query": "Breakdown order_count between 2018-08-10 and 2018-08-09 by seller_state contribution",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true,
+        "require_contribution": true
+      }
+    },
+    {
+      "id": "ar-report-weekly",
+      "category": "report_generation",
+      "query": "生成本周经营分析报告",
+      "expect": {
+        "task_type": "report_generation",
+        "require_report": true,
+        "require_lineage": true
+      }
+    },
+    {
+      "id": "ar-report-monthly",
+      "category": "report_generation",
+      "query": "生成月度经营分析报告",
+      "expect": {
+        "task_type": "report_generation",
+        "require_report": true,
+        "require_lineage": true
+      }
+    },
+    {
+      "id": "ar-report-gmv-daily",
+      "category": "report_generation",
+      "query": "Generate a GMV daily report with trend and anomaly explanation",
+      "expect": {
+        "task_type": "report_generation",
+        "require_report_draft": true
+      }
+    },
+    {
+      "id": "ar-report-sales-weekly",
+      "category": "report_generation",
+      "query": "Generate a weekly sales report with order_count and average_order_value changes",
+      "expect": {
+        "task_type": "report_generation",
+        "require_report": true
+      }
+    },
+    {
+      "id": "ar-report-period-comparison",
+      "category": "report_generation",
+      "query": "生成一份本月与上月对比的经营报告",
+      "expect": {
+        "task_type": "report_generation",
+        "require_report": true,
+        "require_lineage": true
+      }
+    },
+    {
+      "id": "ar-query-definition-conflict",
+      "category": "clarification",
+      "query": "GMV 最近怎么样？先告诉我它的定义",
+      "expect": {
+        "task_type": "metric_definition",
+        "require_rag": true
+      }
+    },
+    {
+      "id": "ar-query-mixed-metric",
+      "category": "clarification",
+      "query": "我想知道订单量和客单价，先查今天的数据",
+      "expect": {
+        "task_type": "metric_query",
+        "require_tool": true
+      }
+    },
+    {
+      "id": "ar-report-evidence",
+      "category": "report_generation",
+      "query": "生成一份带数据来源和图表证据的 GMV 周报",
+      "expect": {
+        "task_type": "report_generation",
+        "require_report": true,
+        "require_lineage": true
+      }
+    }
+  ]
+}

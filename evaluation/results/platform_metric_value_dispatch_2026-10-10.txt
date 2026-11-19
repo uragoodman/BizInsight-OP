@@ -1,0 +1,30 @@
+﻿
+metric_id                  expected actual status passed failed_checks
+---------                  -------- ------ ------ ------ -------------
+avg_approval_lead_hours         7.4    7.4 ok       True {}           
+avg_delivery_lead_time          3.0    3.0 ok       True {}           
+avg_delivery_transit_hours     16.6   16.6 ok       True {}           
+avg_dispatch_lead_hours         8.4    8.4 ok       True {}           
+avg_items_per_order             4.0    4.0 ok       True {}           
+avg_order_value               260.0  260.0 ok       True {}           
+bad_review_rate                25.0   25.0 ok       True {}           
+cancel_rate                    20.0   20.0 ok       True {}           
+customer_count                  3.0    3.0 ok       True {}           
+delivery_delay_rate           33.33  33.33 ok       True {}           
+freight_rate                  12.31  12.31 ok       True {}           
+freight_value                 160.0  160.0 ok       True {}           
+gmv                          1300.0 1300.0 ok       True {}           
+installment_order_share       13.85  13.85 ok       True {}           
+on_time_delivery_rate         66.67  66.67 ok       True {}           
+order_approval_rate           86.36  86.36 ok       True {}           
+order_count                     5.0    5.0 ok       True {}           
+order_final_delivery_rate     36.36  36.36 ok       True {}           
+order_shipment_rate            50.0   50.0 ok       True {}           
+payment_value                1300.0 1300.0 ok       True {}           
+repeat_customer_count           2.0    2.0 ok       True {}           
+repeat_purchase_rate          66.67  66.67 ok       True {}           
+review_comment_rate            50.0   40.0 ok      False {value}      
+review_score_avg               3.25   3.25 ok       True {}           
+
+
+

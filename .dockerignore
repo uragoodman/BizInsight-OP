@@ -1,0 +1,16 @@
+.git
+.pytest_cache
+pytest-*
+.pytest-*
+__pycache__
+*.py[cod]
+.env
+data/traces
+data/evaluations
+data/checkpoints
+data
+data/pytest-*
+data/quality
+data/*.sqlite
+web/node_modules
+web/dist

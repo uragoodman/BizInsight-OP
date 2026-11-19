@@ -1,0 +1,22 @@
+{
+  "version": "resume_dev_pair_completion_v3",
+  "parent_version": "resume_dev_pair_common_checks_v2_claim_source_binding",
+  "scope": "resume_dev_pair development measurements only",
+  "dimensions": {
+    "content_valid": "Existing evidence, numeric result, answer text and causal-boundary checks pass; reported independently from task completion.",
+    "business_completed": "For governed_workflow, no execution errors, analysis_result.abstain is false, presentation.status is completed, and the investigation stop code is ENOUGH_EVIDENCE or COMPLETED. For basic_tool_loop, a non-empty final answer with no response/state errors and no hard-stop code satisfies its simpler execution contract.",
+    "review_completed": "For governed full mode, the overall Critic verdict and data, claim, diagnostic, completeness, and causal reviews all have recognized structured statuses; groundedness, completeness, and consistency each have completion_status=completed and a schema-valid passed/rejected verdict. A completed rejection remains completed review but is not approval. Basic tool loop is not applicable; an explicit LLM-review ablation is recorded as evaluation_ablation and is not counted as completed review.",
+    "review_approved": "Review is completed, the overall and all deterministic Critic reviews are approved, optional LLM review status is passed, and all three optional verdicts are passed.",
+    "task_pass": "content_valid AND business_completed AND NOT manual_review_required AND (review not required OR review_completed AND review_approved)."
+  },
+  "terminal_semantics": {
+    "partial_or_budget_exhausted": "Cannot count as business_completed or task_pass for this complete statistical-contribution task, even if the retained evidence and content are valid.",
+    "causality": "A validated statistical contribution does not establish business causality.",
+    "historical_scores": "Existing v1/v2 score files and run records remain immutable; v3 replay is written separately."
+  },
+  "evidence": {
+    "claim_binding": "Reference existence under the arm-specific evidence ID contract; this is not a semantic groundedness judge.",
+    "manual_review": "Unresolved textual requirements remain manual_review_required and do not automatically pass."
+  },
+  "created_for": "Re-score development pair task completion independently from content and review execution after observing a valid-but-partial governed run."
+}

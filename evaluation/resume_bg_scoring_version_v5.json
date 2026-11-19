@@ -1,0 +1,27 @@
+{
+  "scorer_version": "resume-bg-score-v5",
+  "status": "offline_replay_only_not_formally_frozen",
+  "parent_versions": [
+    "resume-bg-score-v3",
+    "resume-bg-score-v4"
+  ],
+  "scope": "explicit opt-in offline replay of preserved resume B/G records; runtime default remains v3",
+  "changes": [
+    "expected_limitation prose is no longer interpreted as a dimension identifier; structured limitation evidence remains required",
+    "initial query evidence and validated investigation evidence are checked independently and merged by evidence ID",
+    "duplicate evidence IDs with conflicting normalized facts are excluded and reported",
+    "symmetric_ratio_v1 numerator_effect and denominator_effect are mapped from the registered numerator_metric and denominator_metric",
+    "human review pending no longer masks automatic failures; safe-stop tasks do not require a numeric diagnosis",
+    "experiment condition validity is reported independently from task scoring"
+  ],
+  "unchanged_requirements": [
+    "case truth, numeric tolerance, unit rules, evidence binding, exact 38-group contribution coverage, full review completion, and human review gate",
+    "historical v3/v4 entrypoints and saved scores are not rewritten",
+    "unknown token usage remains null"
+  ],
+  "execution": {
+    "provider_calls": 0,
+    "database_connections": 0,
+    "candidate_agent_runs": 0
+  }
+}

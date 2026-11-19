@@ -1,0 +1,55 @@
+planning_defaults:
+  examples: ["查询{display_name}", "查看{display_name}趋势"]
+  limitations: "支付金额按既定支付分摊口径计算。"
+metrics:
+  - metric_id: payment_value
+    display_name: 支付金额
+    aliases: [支付金额, 支付总额]
+    unit: BRL
+    display_format: currency
+    base_grain: order
+    aggregation: sum
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 9
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: payment.payment_value
+        capabilities: [value, trend, compare, breakdown, period]
+        dimensions: [payment_type]
+        lineage_source: analytics.fact_order_payments + analytics.fact_orders
+        lineage_description: 金额取自卖家分摊行allocated_payment_value；按analytics.fact_orders.purchase_date归属期间，平台合计还原原始支付金额而不重复累计重复存储的payment_value
+      seller:
+        handler_key: payment.payment_value
+        capabilities: [value, trend, compare, breakdown]
+        dimensions: [payment_type]
+        lineage_source: analytics.fact_order_payments
+        lineage_description: 店铺按商品金额加运费比例分摊，不重复归属
+
+  - metric_id: installment_order_share
+    display_name: 分期支付金额占比
+    aliases: [分期占比, 分期支付占比]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/payment_and_fulfillment.md
+    display_order: 10
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: payment.installment_order_share
+        capabilities: [value, trend, compare, period]
+        dimensions: []
+        lineage_source: analytics.fact_order_payments + analytics.fact_orders
+        lineage_description: 分子与分母均由allocated_payment_value按分期次数聚合；按analytics.fact_orders.purchase_date归属期间，整体计算分期支付金额占比
+      seller:
+        handler_key: payment.installment_order_share
+        capabilities: [value, trend, compare]
+        dimensions: []
+        lineage_source: analytics.fact_order_payments
+        lineage_description: 店铺范围分期分摊支付金额占比

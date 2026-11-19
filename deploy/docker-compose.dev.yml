@@ -1,0 +1,42 @@
+# Development infrastructure only.  Run the FastAPI application on the host
+# with Uvicorn reload, while Docker supplies the stateful dependencies.
+#
+# This file intentionally has no `name:` field: Compose therefore derives the
+# same `deploy` project name as docker-compose.yml and can reuse its existing
+# PostgreSQL and Qdrant containers/data.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: bizinsight
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${BIZINSIGHT_POSTGRES_PASSWORD:-postgres}
+      CODE_ANALYSIS_API_DB_PASSWORD: ${CODE_ANALYSIS_API_DB_PASSWORD:-bizinsight-code-api-dev}
+      CODE_ANALYSIS_WORKER_DB_PASSWORD: ${CODE_ANALYSIS_WORKER_DB_PASSWORD:-bizinsight-code-worker-dev}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./postgres/init-code-analysis-roles.sh:/docker-entrypoint-initdb.d/10-code-analysis-roles.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bizinsight"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  qdrant:
+    image: qdrant/qdrant:v1.15.1
+    ports:
+      - "6333:6333"
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    profiles: ["code-agent"]
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${CODE_ANALYSIS_S3_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${CODE_ANALYSIS_S3_SECRET_KEY:-minioadmin}
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+    volumes:
+      - code-analysis-data:/data
+volumes:
+  code-analysis-data:

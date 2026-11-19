@@ -1,0 +1,124 @@
+planning_defaults:
+  examples: ["查询{display_name}", "查看{display_name}趋势"]
+  limitations: "质量指标以可关联订单和评论记录为准。"
+metrics:
+  - metric_id: review_score_avg
+    display_name: 平均评分
+    aliases: [review_score_avg, average review score, 平均评分, 评论分, 平均评论分]
+    unit: score
+    display_format: score
+    base_grain: review
+    aggregation: average
+    direction: higher_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/review_score_avg.md
+    display_order: 6
+    planning:
+      examples:
+        - "查询{display_name}"
+        - "查看{display_name}趋势"
+        - "评分较低的商品有哪些"
+        - "产品评分低的评价"
+      semantic_terms: [低分的评价, 相对低分的评价, 低分评价, 评分]
+      intents: [产品评分, 评分高低, 评价质量]
+      limitations: "评分按评论记录计算；商品品类或商品级拆解必须以当前范围实际开放的维度为准。"
+    # 平均评分已具备店铺范围的受控查询实现，可在数据浏览页预览。
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: quality.review_score_avg
+        capabilities: [value, trend, compare, period]
+        dimensions: [customer_state, customer_city]
+        lineage_source: raw.order_reviews
+        lineage_description: 所有评论评分的平均值
+      seller:
+        # 每个店铺订单先去重，再关联订单评论；同一订单的多件商品不会重复加权一条评论。
+        handler_key: quality.review_score_avg
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_delivered_order_items + raw.order_reviews
+        lineage_description: 店铺参与的已交付订单对应评论的平均分；多卖家订单的同一订单评论会归属给参与店铺
+
+  - metric_id: bad_review_rate
+    display_name: 差评率
+    aliases: [bad_review_rate, bad review rate, 差评率, 负面评价率, 低分评论率]
+    unit: "%"
+    display_format: percentage
+    base_grain: review
+    aggregation: weighted_ratio
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/bad_review_rate.md
+    display_order: 16
+    planning:
+      examples:
+        - "查询{display_name}"
+        - "低分评论占比是多少"
+        - "差评较多的商品有哪些"
+      semantic_terms: [低分的评价, 相对低分的评价, 低分评价]
+      intents: [低分评论, 差评占比, 负面评价比例]
+      limitations: "低分评论率按评分小于等于 2 的评论占比计算；商品维度必须以当前范围实际开放的维度为准。"
+    surfaces: [explorer, report, target, chat]
+    implementations:
+      platform:
+        handler_key: quality.bad_review_rate
+        capabilities: [value, trend, compare, period]
+        dimensions: [customer_state, customer_city]
+        lineage_source: raw.order_reviews
+        lineage_description: 评分 ≤ 2 的评论数 / 总评论数 × 100
+      seller:
+        # 同 review_score_avg：先按 seller_id + order_id 去重，避免多商品订单的
+        # 同一条评论重复计入分母。评分 ≤ 2 视为差评。
+        handler_key: quality.bad_review_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_delivered_order_items + raw.order_reviews
+        lineage_description: 店铺已交付订单中评分为 1 或 2 的占比；订单内商品已去重
+
+  - metric_id: cancel_rate
+    display_name: 取消率
+    aliases: [cancel_rate, cancellation rate, 取消率, 订单取消率]
+    planning:
+      semantic_terms: [取消]
+    unit: "%"
+    display_format: percentage
+    base_grain: order
+    aggregation: weighted_ratio
+    direction: lower_is_better
+    version: "1.0"
+    documentation: docs/knowledge/metrics/cancel_rate.md
+    display_order: 14
+    surfaces: [report, target, chat]
+    implementations:
+      platform:
+        handler_key: other.cancel_rate
+        capabilities: [value, trend, compare, period]
+        dimensions: []
+        lineage_source: analytics.fact_orders
+        lineage_description: 已取消订单数 / 总订单数 × 100
+
+  - metric_id: review_comment_rate
+    display_name: 含文本评论率
+    aliases: [评论含文本率, 评论正文率]
+    unit: "%"
+    display_format: percentage
+    base_grain: review
+    aggregation: weighted_ratio
+    direction: neutral
+    version: "1.0"
+    documentation: docs/knowledge/metrics/review_score_avg.md
+    display_order: 53
+    surfaces: [explorer, report, chat]
+    implementations:
+      platform:
+        handler_key: quality.review_comment_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: raw.order_reviews
+        lineage_description: 有非空 comment_message 的评论数 / 总评论数 × 100
+      seller:
+        handler_key: quality.review_comment_rate
+        capabilities: [value, trend]
+        dimensions: []
+        lineage_source: analytics.v_order_unified
+        lineage_description: 有非空 comment_message 的订单数 / 店铺总订单数 × 100
